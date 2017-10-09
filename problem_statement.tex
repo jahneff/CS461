@@ -1,0 +1,19 @@
+\documentclass[letterpaper, 10pt, fleqn]{article}
+
+\title{Problem Statement}
+
+\begin{document}
+\begin{abstract}
+	This system we seek to design is an internet-of-things device designed to independently manage gardens through collection and analysis of plant growth data. Automatic gardening systems are commonplace, but this system tryuly automates by learning from past experiences, and applying that information to future practices. We will be using some kind of microcontroller (more will be revealed when we meet the client) to control and monitor watering, temperature, and humidity. This central monitor will be linked via network to microcontrollers in the surrounding garden, which admisister the correct amount of water to each plant. The growth data can either be fed into the machine manually, or recorded by the networked microcontrollers and relayed to the central monitor. The end result should be a fully autonomous networked garden. 
+\end{abstract}
+
+\section{body}
+	Disclaimer: We have not talked to our client yet. Some of the following content will need to be revised. 
+
+	This project, titled The Green Smart Gardening System, aims to monitor, analyze, and implement the findings of environmental factors and their relationship to plant growth. The goal here is to have multiple sensors that monitor humidity, temperature, and soil moisture, and other factors, and to connect them all to a centralized microcontroller. The connection will go through a computer that can analyze the data, and then pass to the microcontroller an analysis that informs its function. The device should be solar powered or fueled by some other green source. 
+
+	The binding principle behind this whole project is that it is fully automated and sustainable. It manages itself in terms of function and energy usage, and only needs to be interacted with to perform maintenance. To accomplish this, not only the microcontroller, but all of the sensors need to be solar powered. Also, the central monitor needs to be constantly recieving new information to adjust its settings. In order to analyze the data, it needs to be beamed to the cloud, since the microcontroller will not be able to handle analysis computationally, and is restricted to local data anyway. However, the sensors shouldn't all connect to the cloud. To make things more efficient, the sensors should send their data to the microcontroller, which connects to the internet and sends the data to the cloud. In return it recieves an updated, analyzed series of data packets that tell it what to do with the conditions specified. This data is then implemented by the microcontroller. 
+
+	The microcontroller will need internet capability, and preferably some file transfer protocol. A program will need to be written to recieve, assemble, send, and parse data, and subroutines will be written so that the information gathered will be implemented. As far as the analysis goes, some kind of low-level machine learning will need to be implemented so that the data is always managed in a way that makes the plant grow as well as possible. 
+
+\end{document}  
