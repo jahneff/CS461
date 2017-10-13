@@ -2,7 +2,7 @@ TARGET=problem_statement
 HTML=main_html
 SRC={problem_statement}
 
-latex:
+latex: problem_statement.tex
 	latex problem_statement.tex
 	dvips -R -Poutline -t letter problem_statement.dvi -o problem_statement.ps
 	ps2pdf problem_statement.ps
