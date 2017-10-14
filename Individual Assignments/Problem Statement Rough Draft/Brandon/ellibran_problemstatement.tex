@@ -1,0 +1,139 @@
+\documentclass[IEEEtran,letterpaper,10pt,titlepage,fleqn,draftclsnofoot,onecolumn]{article}
+%notitlepage vs titlepage
+%fleqn left align
+
+%\usepackage{nopageno} %no page numbers
+\usepackage{indentfirst}
+\usepackage{alltt}                                           
+\usepackage{float}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage{graphicx}                                        
+\usepackage{amssymb}                                         
+\usepackage{amsmath}                                         
+\usepackage{amsthm}                                          
+
+\usepackage{balance}
+%\usepackage[TABBOTCAP, tight]{subfigure}
+\usepackage{enumitem}
+\usepackage{pstricks, pst-node}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{listings}
+%allows for code snipets
+
+\geometry{textheight=9.5in, textwidth=7in} 
+
+\newcommand{\cred}[1]{{\color{red}#1}} %think function call, changes text to red
+\newcommand{\cblue}[1]{{\color{blue}#1}} %text to blue
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+  language=c,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\def\name{Brandon Ellis}
+\def\class{CS 461 }
+\def\assignment{Problem Statement}
+
+%PDF Properties
+\hypersetup{
+  colorlinks = true,
+  urlcolor = black,
+  pdfauthor = {\name},
+  pdfkeywords = {cs461 ``Senior Capstone' Problem Statement},
+  pdftitle = {\class \assignment},
+  pdfsubject = {\class \assignment},
+  pdfpagemode = UseNone
+}
+
+\begin{document}
+%TitlePage
+\begin{titlepage}
+	\begin{center}
+		\vspace*{1cm}
+		
+		\huge
+		\textbf{Green Smart Gardening System: Problem Statement}
+        
+        \vspace{1.5cm}
+        
+		\large
+        \textbf{Brandon Ellis}
+		
+		\vspace{5cm}
+		
+		\normalsize
+		This paper covers the challenges and solutions proposed in Green Smart Gardening System, an analytical smart gardening device. First, this paper will address the problem that our created device will seek to solve. It will then discuss the proposed solution, broken down into the device’s inputs, outputs, hardware, and analysis. Finally, this paper will conclude with the metrics which will define the completion of our device. This paper has been created prior to our first client meeting, as such some assumptions are being made and some requirements are noted to only be temporarily penned in.
+		
+		\vfill
+        
+		\large
+        CS 461\\
+        Fall Term\\
+    \end{center}
+\end{titlepage}
+
+\section{Description of Problem}
+
+As the use of smart home technology increases so has the interest in smart gardening. This presents an opportunity to create a device that can simplify some aspects of gardening and provide the user with more in-depth analysis of their garden. This device would enable the user to contrast the health of their plant with environmental statistics, making informed care of their garden that much easier. 
+
+\vspace{5mm}
+
+\section{Proposed Solution}
+
+What this project is aiming to accomplish is the creation of an environmental monitoring device. While a specific microcontroller has yet to be determined, said device has a number of specific necessities. I will be breaking these specifics down into four portions: input, output, hardware, and analytics. 
+
+\subsection{Input}
+
+To fulfill the gardening aspect of this device, it tracks several environmental conditions. For soil, the device will measure the moisture level in the soil. Additionally, pending the meeting with our clients, the temperature of the soil may be measured. On the note of temperature, the ambient air temperature will be recorded. The air humidity and condition will also be noted.
+
+\subsection{Output}
+
+Once all of the above inputs have been recorded, the device needs to send them somewhere useful. There is one location planned currently for the data to go, but there are several routes that the data can take from it. First the data will always go to a computer for analysis. Once the data has been quantified, a couple different things could occur depending on our group’s initial and stretch goals. The first is that the data could be sent wirelessly to a smart phone or another smart device. From there, the user could reference a more viewable representation of the data at their leisure. The second tags on to outputting the data for viewing, a current stretch goal is the creation of a viewing model that would compare specifics plants’ health against noted environmental factors. Lastly, the computer would be able to interface with an existing smart home system to control environmental factors. These could include the ambient temperature, lighting, and sprinklers.
+
+\subsection{Hardware}
+
+To achieve this the microcontroller will have to be augmented slightly. First, the inputs require the device communicates with several sensors. Assuming a single connected sensor cannot collect multiple forms of environmental data, the device would need five sensors maximum. These will be for soil temperature, ambient temperature, soil moisture, air condition, and humidity.
+
+\vspace{5mm}
+
+Once the data has been collected, the microcontroller needs to output it. Depending on the direction of the project, the output could be done a couple of different ways. There will be a guaranteed connection from the device to a computer for the analysis of data. This will most likely be achieved by a wireless connection between the two, though it could be hardwired. When the data has been analyzed by the computer, there is a stretch goal that would connect said computer wirelessly to a smartphone or other internet enabled device. All of these result in the microcontroller needing at least one possible form of wireless output.
+
+\vspace{5mm}
+
+The last hardware requirement lies in how the device is powered. I key requirement is that the microcontroller be powered through green methods, with the preferred form being solar. This will mean that the device will most likely need to have a solar panel that feeds into a battery pack. This battery pack will then be what the microcontroller plugs into. By having a battery pack in the system, the device will be able to sustain power during night or when there are lower light levels.
+
+\clearpage
+
+\subsection{Analytics}
+
+This bring us to the last piece of functionality, the analysis of data. There are two separate portions to this. The first analysis is done purely on the recorded data. After the microcontroller outputs raw data to a computer, an analytical model is required to be viewable. This model provide access all of outputted data. It does not contrast this information, instead simply making it accessible for the user to reference. The second form of analysis is currently a stretch goal. This analysis is on the aforementioned data once it has been outputted to the computer, but it does contrast the information against the general health and growth of a specific plant. At this point, how the health and growth is measured is undefined. Most likely these values will be inputted by the user, based on their insights and measurements.
+
+\vspace{5mm}
+
+\section{Performance Metrics}
+
+For this project to be considered complete, there are several requirements. First, the microcontroller must receive valid, continuous, string of data from each of its inputs. This will result in the device collecting data, in designated intervals, on the soil, temperature, and air. Second, the microcontroller must be powered through solar energy. This will result in a green device, which is a key requirement for this project. Third, all captured data must be fed to a computer, and said computer must quantify all data for the user’s viewing. When these three tasks have been completed, the base specification of the device will be achieved.
+
+\vspace{5mm}
+
+To reach the full stretch goals for the project two more requirements must be met. The first is that once the data has reached the computer for analysis, it can be transmitted wirelessly for viewing on another device. The second stretch goal is the creation of an analytical model for comparing the health of a plant with the data received from the microcontroller. The health of the plant will, at this time, be defined by the user. This information would be viewed at either the main computer or sent wirelessly to a device. 
+
+\end{document}
