@@ -116,6 +116,8 @@ To fulfill the gardening aspect of this device, it tracks several environmental 
 
 Once all of the above inputs have been recorded, the device needs to send them somewhere useful. There is one location planned currently for the data to go, but there are several routes that the data can take from it. First the data will always go to a computer for analysis. Once the data has been quantified, a couple different things could occur depending on our group’s initial and stretch goals. The first is that the data could be sent wirelessly to a smartphone or another smart device. From there, the user could reference a more viewable representation of the data at their leisure. The second tags onto outputting the data for viewing, a current stretch goal is the creation of a viewing model that would compare specifics plants’ health against noted environmental factors. Lastly, the computer would be able to interface with an existing smart home system to control environmental factors. These could include the ambient temperature, lighting, and sprinklers.
 
+\clearpage
+
 \subsection{Hardware}
 
 To achieve this the microcontroller will have to be augmented. First, the inputs require the device communicates with several sensors. Specifically, we are currently looking at the Adafruit BME280 I2C, for soil temperature, humidity, and pressure; DFRobot Gravity, for soil moisture; and EZO pH Circuit, for the pH of the soil.
@@ -127,8 +129,6 @@ Once the data has been collected, the microcontroller needs to output it. Depend
 \vspace{5mm}
 
 The last hardware requirement lies in how the device is powered. A key requirement is that the microcontroller be powered through green methods, with the preferred form being solar. This will mean that the device will need to have a solar panel that into the microcontroller. The current battery pack being eyed is the MSP430. To fulfil all requirements this charger may need to be expanded, as it has the possibility to add additional solar panels. It does have a rechargeable battery contained within for storing the charge during lower light.
-
-\clearpage
 
 \subsection{Analytics}
 
