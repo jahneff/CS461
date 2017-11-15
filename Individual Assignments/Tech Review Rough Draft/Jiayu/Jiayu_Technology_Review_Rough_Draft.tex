@@ -1,0 +1,81 @@
+\documentclass[letterpaper,10pt,titlepage]{article}
+
+\usepackage{color}
+\usepackage{enumitem}
+
+
+%random comment
+
+\usepackage{hyperref}
+
+\def\name{Jack Neff}
+
+%pull in the necessary preamble matter for pygments output
+
+%% The following metadata will show up in the PDF properties
+\hypersetup{
+  colorlinks = true,
+  urlcolor = black,
+  pdfauthor = {\name},
+  pdfkeywords = {CS461 Capstone},
+  pdftitle = {CS 461 Technical Review}
+  pdfsubject = {Rough draft for capstone fall 2017},
+  pdfpagemode = UseNone
+}
+
+\begin{document}
+
+\section{Technical Review}
+	Jiayu Han
+	CS 461
+	Green Smart Gardening System
+
+\section{Introduction}
+	
+I am in charge of the power and the wireless method for data transferring. Our project, Green Smart Gardening System, is defined as a green energy powered Internet-of-Thing device that monitors and analyses the environmental conditions. It is supposed to use green power instead of traditional nonrenewable power resources, and wireless method for data to transfer to database for analyzation. Since it is aiming the Oregon wine industry, it requires the device to work when there is not enough sunlight to provide solar power.
+
+
+\section{Solar Panel}
+
+Candidates: KINGSOLAR™ Ultra-light Portable Solar Charger Solar Panel, ALLPOWERS 2 Pieces Solar Panel DIY Battery Charger Kit , ECO-WORTHY Polycrystalline Solar Panels 
+
+Criteria: Since our device will be outdoor, it requires the device to be water prove. Based on our estimated power consumption, it requires 5 watt power output to provide enough power to run the entire device including micro-controller and multiple sensors at their full power.
+
+
+KINGSOLAR ultra-light portable solar charger solar panel is a \$17.99 product on Amazon, which has a 5 watt mono-crystalline 18.5\% conversion rate. It can provide 5 watt 5 volt power output. There are 4 holes at its four corners for convenience. It has an 227 * 196 mm surface with only 1 mm thickness, which make it easier to install on the device. At the back of the solar panel, there is also a build-in USB port to provide power. However, though the entire solar panel surface is not super big, the actual solar panel occupies at most 4/5 of the total surface, which makes a lot of space wasted. Since it is an already finished product, it`s hard for us to do any further adjustment for the size. Even it has a USB plug to provide power, we most likely will not use that to provide power to the device.
+
+ECO-WORTHY polycrystalline solar panels is a \$19.99 solar panel on Amazon, which provides 5 watt 12 volt output. This water-proof solar panel is framed with aluminum to provide upto 20 years lifespan. Instead of USB port, it can be applied to varies DC appliance. The main disadvantage is that the size of this solar panel is way bigger because of the aluminum frame. It has a 255 * 194 mm surface with a 15 mm thickness. since the cable connect point is already build-in, it will take a lot of time to adjust it to the size we may want. Also, the 12 volt output will actually over charge our device if we do not make any adjustment. 
+
+ALLPOWERS 2 pieces solar panel is a \$13.99 solar panel on Amazon, which provides 5 watt 5 volt output in total. It has a 17\% conversion rate. This product has a 130 * 150 mm surface with 2.5 mm thickness. The product only comes with 2 pieces of solar panel which makes it easy to customize. The disadvantage is that the total surface is bigger than the other two. 
+
+Overall, we believe that the ALLPOWERS 2 pieces solar panel would be the best out of three based on the price the its clean package for easy customization. Though, the combined surface size is about the same or larger than the other two, it should be easier to solve since it is two separate pieces.
+
+
+\section{Battery}
+Candidates: LI-ION battery, USB battery bank, Lithium Polymer battery
+
+Criteria: It should be able to provide enough power for the device to run without any solar power at least a day. It needs to be rechargeable and reliable for about 3 months or longer. 
+
+LI-ION battery is the most common battery for similar projects. It usually has a 3 to 3.7 volt output which fits our micro-controller perfectly. The capacity varies from 800 mAh to 6000 mAh. It is most likely the cheapest battery out of all three kinds of batteries. It is easy to adjust the voltage and current by series or parallel connection. The main disadvantage is that it has a shorter life time and less rechargeable times than the other two types of batteries.
+
+USB battery bank is also a great option with fairly large capacity. It is easy to get a 20000 battery bank within \$50. Since most USB battery bank is aiming for portable devices like smart phone and tablet, they usually come with 5 volt and 1-3 amps output with 1-4 USB ports. Some USB battery banks provide water-proof ability. It has similar size as the LI-ION batteries combined at the same capacity. It has longer life time and more rechargeable times than LI-ION battery.
+
+Lithium Polymer battery, usually called LiPo battery, is the rechargeable battery that mostly used in cars, laptop, cell phones. It is pretty similar to LI-ION battery. It is more robust and flexible with low profile. It is also safer because of the lower chance of leaking electrolytes. However, it has even less power and shorter lifespan than LI-ION battery with a more expensive price.
+
+Overall, LI-ION battery will be the preferred battery based on its high power density, low costs and no memory effect. It will require us to spend more time on the safety since it has higher chance of combustion. 
+
+\section{Wireless Method}
+
+Candidates: Wi-Fi, Bluetooth, Cellular
+
+Criteria: It needs to be reliable for transferring data to database. Does not have to transfer data in real time.
+
+Wi-Fi data transfer ability is already provided by our Arduino MKR1000 micro-controller. It has varies of frequency with 2.4, 3.6 and 5 GHz. It has a higher bandwidth at 11 Mbps which can transfer large amount of data faster. The biggest advantage is that it has a a typical range at 32 meters indoors and 95 meters outdoor. The range is also easy to expand by adding access point or router. Also, it allow us to directly transfer the data online if needed. It does have a higher power consumption, cost and more complex.     
+
+Bluetooth data transfer is a local device to device information transfer method. It is pretty cheap and easy to use once you connect the component to the device, with a fairly low power consumption. However, it has a pretty low range at 5-30 meters and bandwidth at 800 Kbps, which does not really fit outdoor usage. 
+
+Cellular is wide area networks wireless Internet access. It has great range but almost impossible to increase the accessibility when its weak. It requires extra cost depends on which Internet service you get, and it`s reliability is unstable based on the Oregon`s weather. It can only transfer data through internet with a variable of speed.
+
+Overall, Wi-Fi will be the preferred wireless method since it`s a build-in part in our micro-controller. It can provide both local offline information transferring and wide area online information transferring. Its range is good enough to cover the area we need at out door.
+
+\end{document}

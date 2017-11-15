@@ -1,0 +1,6 @@
+all: 
+	pdflatex Jiayu_Technology_Review_Rough_Draft.tex
+	rm -f *.dvi *.out *.aux *.log
+
+clean:
+	rm -f *.dvi *.out *.aux *.log *.toc
