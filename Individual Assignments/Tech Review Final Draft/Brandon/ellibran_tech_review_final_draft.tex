@@ -1,0 +1,276 @@
+\documentclass[IEEEtran,letterpaper,10pt,titlepage,fleqn,draftclsnofoot,onecolumn]{article}
+%notitlepage vs titlepage
+%fleqn left align
+
+%\usepackage{nopageno} %no page numbers
+\usepackage{indentfirst}
+\usepackage{alltt}                                           
+\usepackage{float}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage{graphicx}                                        
+\usepackage{amssymb}                                         
+\usepackage{amsmath}                                         
+\usepackage{amsthm}                                          
+
+\usepackage{balance}
+%\usepackage[TABBOTCAP, tight]{subfigure}
+\usepackage{enumitem}
+\usepackage{pstricks, pst-node}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{listings}
+%allows for code snipets
+
+\geometry{textheight=9.5in, textwidth=7in} 
+
+\newcommand{\cred}[1]{{\color{red}#1}} %think function call, changes text to red
+\newcommand{\cblue}[1]{{\color{blue}#1}} %text to blue
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+  language=c,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\def\name{Brandon Ellis}
+\def\class{CS 461}
+\def\assignment{Technology Review}
+
+%PDF Properties
+\hypersetup{
+  colorlinks = true,
+  urlcolor = black,
+  pdfauthor = {\name},
+  pdfkeywords = {cs461 ``Senior Capstone' Technology Review},
+  pdftitle = {\class \assignment},
+  pdfsubject = {\class \assignment},
+  pdfpagemode = UseNone
+}
+
+\begin{document}
+%TitlePage
+\begin{titlepage}
+	\begin{center}
+		\vspace*{1cm}
+		
+		\huge
+		\textbf{Green Smart Gardening System: Technology Review}
+        
+        \vspace{1.5cm}
+        
+		\large
+        \textbf{Brandon Ellis}
+		
+		\vspace{5cm}
+		
+		\normalsize
+		This document discusses some core components that will make up our final product, a solar powered gardening device that provides the user with environmental data. There are three key pieces of functionality that this document will cover: Soil Moisture, Air Temperature \& Humidity, and Microcontrollers. The first two of these relate to environmental sensors that the chosen microcontroller will connect to. The last section covers the microcontroller itself. Each of these sections offer a description of the required task and go on to contrast different options to achieve these tasks.
+		
+		\vfill
+        
+		\large
+        CS 461\\
+        Fall Term\\
+    \end{center}
+\end{titlepage}
+
+\section{Soil Moisture}
+\subsection{Overview}
+
+This section covers sensors surrounding the Soil Moisture, a piece of core functionality for our device. It will note the feature of the Phantom YoYo, SparkFun Soil Moisture Sensor, and the Icstation Resistive Soil Moisture Sensor Module. It will then contrast these three sensors and offer the suggested sensor for this task.
+
+\subsection{Criteria}
+
+The only core piece of criteria is the collection of soil moisture data. To that end a device with a decent level of precision, not to scientific standards, is needed. Other aspects that will determine how the following components rank are the cost of each device, its power consumption, and any preference our client may have. 
+
+\subsection{Choices}
+\subsubsection{Phantom YoYo[1]}
+\textit{3.3-5V Power | 20 mA Max Consumption | \$1.15}
+
+\vspace{1mm}
+
+The Phantom YoYo is a moisture sensor that boasts about its low power consumption. This component promises high sensitivity even with its lower power draw, but gave no scale of comparison. While no specific information was offered on connecting the Phantom YoYo, it does note that this device is Arduino compatible. This, along with given pictures of the YoYo, show that connections to this board are made through standard pins. Finally, the YoYo does offer a given range of temperature in which it can function. The range is between 10°C to 30°C. While this would normally be a cause for concern, this is the temperature while it is embedded within soil. As such, it is not seen as being a fail point for our device.
+
+\subsubsection{Icstation Resistive Soil Moisture Sensor Module[2]}
+\textit{3.3-12V Power | 30 mA Max Consumption | \$9.99}
+
+\vspace{1mm}
+
+The Icstation is the second soil moisture sensor that we will cover. This device, like the YoYo, does not give listed ranges or accuracies and has no mention of operating ranges. The Icstation is composed of a small board that connects to the sensor probe. The board offers standard Arduino pin connections, making this device open for which board it connects to. The probe, however, is connected to the board through a 2.2-meter-long cable. 
+
+\subsubsection{SparkFun Soil Moisture Sensor[3]}
+\textit{5V Power | Consumption Not Given | \$5.95}
+
+\vspace{1mm}
+
+The SparkFun Soil Moisture Sensor is part of a suggested kit, using the SparkFun RedBoard. The device unfortunately took notes from the prior two sensors and does not list its power consumption or its indicated range and precision. Because it is meant to be part of a bundle, it is guaranteed to work in that system. While it is assumed it will work with standard Arduino devices, there is no guarantee.
+
+\subsection{Discussion}
+
+Unfortunately, the best choices for this sensor do not list their operational ranges and accuracies. Under the core assumption that all do in fact measure soil moisture in a quantitative method, we are left with the power use, cost, and connectivity to define which fills the task best. The Phantom YoYo does have the lowest cost, but the temperature range could be a problem during very cold winters. It also has the lowest power consumption out of all of these candidates. The Icstation has the largest cost and the largest noted power consumption. For this, the only discernable benefit that we would get is the ability to place the probe a distance from the device, as it comes with a connecting cable. The final choice is the SparkFun Soil Moisture Sensor. While this device does have assumed Arduino connectivity, it lists no other information about the sensor. Further the brand that it is associated with, and subsequent board that is in a kit with it, is not recommended by our client.
+
+\clearpage
+
+\subsection{Conclusion}
+
+This sensor represents our weakest component, in the sense that this portion has the most ambiguity. Out of the options we had discovered, we are planning on utilizing the Phantom YoYo. This device had the most information associated with it, giving us the most informed decision. It also has the both the lowest cost and the lowest power consumption. Additionally, the only feature from these components that the YoYo does not bring to the table is the cable the Icstation uses. This, however, can be accomplished by simply having long wires cased in a weatherproof sleeve that connect the YoYo to our microcontroller. 
+
+\section{Air Temperature \& Humidity}
+\subsection{Overview}
+
+This section covers the component used to detect air temperature and humidity. There are three choices that will be covered below the SparkFun Atmospheric Sensor Breakout - BME280, the SparkFun Environmental Combo Breakout – CCS811/BME280, and finally the SparkFun Photon Weather Shield. Each of these options will be discussed and contrasted. Then the decided component will be listed.  
+
+\subsection{Criteria}
+
+The required functionality that this this device needs to have is simply the ability to record the air temperature and humidity. Beyond that the only other pieces that come into play are its power consumption, the cost of the component, and any additional features it may bring. In summation, key pieces of this device are its accuracy (again not to a scientific standard), power consumption, cost, and additional features. There is however a stronger weight on power consumption.
+
+\subsection{Choices}
+\subsubsection{SparkFun Atmospheric Sensor Breakout - BME280[4][5]}
+\textit{3.3 V Power | 1 mA Max Consumption | \$19.95}
+
+\vspace{1mm}
+
+The BME280 is a standalone board that has options for connectivity, meets our requirements for temperature and humidity input, and provides an additional environmental sensor. The BME280 has two separate sets of data pins, corresponding to the I2C and SPI data protocols, meaning there are different options for how this device can be connected to a given board. Another board friendly feature of the BME280 is that it is not linked specifically to a certain board. Any board that can connect to the aforementioned pins/protocols can use this breakout. Besides measuring temperature and humidity, it contains a sensor to measure barometric pressure. This not a requirement of this device, but could be added to the weather data accessible for the user. On the note if its sensors, the measurements the BME280 takes have the following operational ranges and guaranteed accuracies. Temperature is recorded from -40°C to 85°C with an accuracy of ±1°C. Humidity is accurate to ±3\% from a range of 0\% to 100\%. Finally, the additional sensor noting barometric pressure has a operational range of -40°C to +85°C with a guaranteed accuracy of within ±1 hPa.
+
+\subsubsection{SparkFun Environmental Combo Breakout – CCS811/BME280[5][6][7]}
+\textit{3.3 V Power | Approx. 30 mA (CCS811) + 1 mA (BMA280) Max Consumption | \$34.95}
+
+\vspace{1mm}
+
+This Combo board mixes the BME280, which is the device discussed above, and the CCS811. All of the functionality that is covered in the BME280 is present in this board. This includes the required functionality for this device, temperature and humidity sensors, as well as a non-required one for barometric pressure. What this board brings to the table is the integration of the BME280 with CCS811. The CCS811 does not bring any further required functionality to this board, what it does add is three additional points of environmental. The three are a CO2 sensor, with a range of 400 to 8,192 per million; Total Volatile Organic Compound (TVOC), with a range of 0 to 1,187 parts per billion; and an altitude indicator, with a range of 0 to 30,000 feet that is accurate from 3.3 to 6.6 feet depending on the distance from sea level. The last feature that this board has that makes it a contender is an increased computation power. This is used specifically for fine tuning readings from the humidity and temperature data provided by its BME280 counterpart.
+
+\clearpage
+
+\subsubsection{SparkFun Photon Weather Shield[8][9][10][11]}
+\textit{3.3 V Power | Approx. 330 µA Max Consumption | \$32.95}
+
+\vspace{1mm}
+
+The SparkFun Photon Weather Shield is a piece of a weather kit sold through SparkFun. The Weather Shield has two onboard sensors, the Si7021-A10 and the MPL3115A1. The Si7021-A10 achieves the core functionality required as this is an air temperature and humidity sensor. This piece has an operating range of -40°C to 125°C. Its temperature is accurate to ±0.4°C and humidity is accurate to ±3\% relative humidity. The MPL3115A1 is an altimeter, measuring the barometric pressure. It does this measuring with a guaranteed accuracy of ±0.4kPa. As it is part of a kit, the Weather Shield is intended to be used with the SparkFun Particle Photon. This is an ARM board, so the Weather Shield is not limited to being developed on this board.
+
+\subsection{Discussion}
+
+All of the above devices achieve the minimum requirement of being able to record the surrounding air temperature and humidity. The differences between these devices are discussed in three categories price, power, and added functionality. In regards to the price of these three boards, the BME280 costs the least with both the Combo and Weather Shield costing around 50\% more. For the difference in cost the Combo and Weather Shield do bring more functionality to the table. The Combo has three additional points of environmental data that it records. Additionally, the Combo has an added computation feature that very slightly improves the accuracy of its humidity and temperature data. The Weather Shield does have an additional sensor, a barometric pressure gauge that the BME280 also possesses. 
+
+\subsection{Conclusion}
+
+The sensor currently chosen to fill this role is the BME280. While core functionality is achieved in all of these components, it comes at a price for the other two options. The Weather Shield does not have any significant difference from the BME280, yet costs more and requires a substantial amount of power. Further this board is part of a kit, for use with the SparkFun Photon RedBoard. Our clients are not particular fans of the RedBoard, and though we could use the Shield with another board, they seemed disinterested in this series. The Combo does bring a substantially larger amount of data to the table, with three more environmental sensors than the BME280. It also results in a higher accuracy for required data. The cost, however, is an increased price and substantial power consumption. Unfortunately, the three additional sensors address no other sensor requirements. Further, the increased accuracy of required data only contrasts it to non-required data to refine the reading slightly. While accuracy is important, the BME280 is already accurate enough and does not require a large power draw to reduce some static in data. In summation, all of the components achieve the base requirements, but the BME280 does so in the most minimalistic manner.
+
+\section{Microcontroller}
+\subsection{Overview}
+
+This section will cover the different possible microcontrollers that could be used. The chosen microcontroller will be the controlling unit for all above mentioned sensors and the rest of this devices components. The boards that will be discussed will be the Arduino MKR1000 WIFI, the Arduino Nano, and the Arduino Yun Mini.
+
+\subsection{Criteria}
+
+The most important aspect of this board is its power consumption. This board will be powered by a solar panel with a backup battery, as such the microcontroller cannot be a goliath. Unfortunately we do not have a range we are looking into, more just basing power relative to others viable boards. Other criteria that will have weight on this choice is the operating voltage, any wireless connectivity the board may have, the method of powering, and finally cost.
+
+\clearpage
+
+\subsection{Choices}
+\subsubsection{Arduino MKR1000[12]}
+\textit{5 V \& 3.3V Input | 3.3 V Operating | 7 mA I/O Pints | \$34.99}
+
+\vspace{1mm}
+
+The Arduino MKR1000 WIFI is a minimal board, with onboard Wi-Fi and crypto modules, and a dual power system. The MKR1000 is controlled by an ARM MCU running at 48 MHz. This device has a required 5V power input, but a 3.3V output for communicating with modules, unless special modifications are made. For inputted power, it has a rather unique system, using two inputs. The first input is a more standard power input, requiring a 5V power source. However, when this source is not available, either due to an outage or it being a cloudy day in the case of solar power, the device can automatically switch to its second power source. The use of a second source is optional, but if one is connected it is required to be a Li-Po battery. Outputted power is one caveat to this device, there are only 8 input pins each with only a 7 mA max current. Moving to the Wi-Fi functionality, the MKR1000 has two onboard modules that aid this. The first is the Wi-Fi module itself. While this is not a requirement of the microcontroller, having Wi-Fi connectivity is a key requirement of the device as a whole. The second module is a CryptoAuthentication chip, which ensures secure communication. 
+
+\subsubsection{Arduino Nano[13][14]}
+\textit{5V \& 6-20 V Input | 5 V Operating | 40 mA I/O Pins | \$22.00}
+
+\vspace{1mm}
+
+The Arduino Nano is a smaller board, but has several useful features. The Nano has the smallest computational power of the microcontrollers discussed here, with it being controlled by a ATmega328 running at 16 MHz on an AVR architecture. But the Nano does offer a few things for this cost, like the MKR1000, the Nano offers two powering options. The first is an unregulated Mini-B USB that can range from 6 V to 20 V. The second is a regulated 5 V sent over the power supply pin. The Nano will switch between these two power sources depending on which is providing more power. Another of note is the number of connections. Talking to external components is done through 22 digital and 8 analog I/O pins, each with a 40 mA maximum current.
+\subsubsection{Arduino Yun Mini[15]}
+\textit{5 V Input | 5 V Operating | 50 mA I/O Pins | \$61.60}
+
+\vspace{1mm}
+
+The last microcontroller discussed is the Arduino Yun Mini. This device is the most computationally heavy of the devices listed, with its processing being done by an Atheros AR9331 running at 400 MHz. Along with this processing power the Yun Mini also has an onboard Wi-Fi chip to provide wireless connectivity to this device. In order to power all of this, and the 20 digital and 12 analog I/O pins, the Yun Mini uses a Micro USB port. It can be powered by directly accessing the power pins, though the USB port is recommended. Additionally, there are pins corresponding to an Ethernet port that can be directly accessed on this board.
+
+\subsection{Discussion}
+
+While the MKR1000 has an incredible power system, that would work perfectly with the requirement to have power through solar while maintaining a backup battery, and though it has onboard Wi-Fi the device has a fatal flaw for our needs. The I/O pins on the MKR1000 have a maximum current of 7 mA. While this would suffice for the temperature and humidity sensor chosen in this document, none of the soil moisture sensors are capable of running on this low of power. This represents a constraint that few sensors seem to be able to work around. This leaves the Nano and the Yun Mini. The Nano, while lacking the same wireless connectivity the other two have, does make up for it with its dual power options. In contrast, the Yun Mini does have wireless connectivity, as well as the largest processor, but is more limited in its option for power.
+
+\subsection{Conclusion}
+
+Though the Yun Mini is the powerhouse of this section, the device required does not need to be the strongest. The microcontroller best suited for our task is the Arduino Nano. It lacks the onboard Wi-Fi chip that the others have, but it has an incredibly low power yield due to its comparative processing power with the Yun Mini. The functionality of wireless communication can be added, drawing power unnecessarily from a solar panel to fuel a 400 MHz processor is a more core problem. Finally, while the MKR1000 is the perfect blend of the other two, a Wi-Fi capable device with a low power draw, the restraints on its I/O pins mean that it would completely dictate which sensors, if any, could fill specific roles.
+
+\clearpage
+
+\section{References}
+[1] “Phantom YoYo Arduino compatible High Sensitivity Moisture Sensor,” Moisture Meters: Amazon.com: Industrial \& Scientific. [Online]. Available: https://www.amazon.com/Phantom-YoYo-compatible-Sensitivity-Moisture/dp/B00AFCNR3U. [Accessed: 14-Nov-2017].
+
+\vspace{1mm}
+
+[2]“Icstation Resistive Soil Moisture Sensor Module for Automatic Watering System Digital Analog Signal Output,” Amazon.com: Industrial \& Scientific. [Online]. Available: https://www.amazon.com/Icstation-Soil-Moisture-Sensor-Module/dp/B074XFNK7H/. [Accessed: 14-Nov-2017].
+
+\vspace{1mm}
+
+[3]“SparkFun Soil Moisture Sensor,” SEN-13322 - SparkFun Electronics. [Online]. Available: https://www.sparkfun.com/products/13322. [Accessed: 14-Nov-2017].
+
+\vspace{1mm}
+
+[4]“SparkFun Atmospheric Sensor Breakout - BME280,” SEN-13676 - SparkFun Electronics. [Online]. Available: https://www.sparkfun.com/products/13676. [Accessed: 14-Nov-2017].
+
+\vspace{1mm}
+
+[5]“BME820 Combined Humidity and Pressure Sensor,” SparkFun Electronics. [Online]. Available: https://cdn.sparkfun.com/assets/learn\_tutorials/4/1/9/BST-BME280\_DS001-10.pdf. [Accessed: 14-Nov-2017].
+
+\vspace{1mm}
+
+[6]“SparkFun Environmental Combo Breakout - CCS811/BME280 (Qwiic),” SEN-14348 - SparkFun Electronics. [Online]. Available: https://www.sparkfun.com/products/14348. [Accessed: 14-Nov-2017].
+
+\vspace{1mm}
+
+[7]“CCS811 Ultra-Low Power Digital Gas Sensor for Monitoring Indoor Air Quality ,” SparkFun Electronics. [Online]. Available: https://cdn.sparkfun.com/assets/learn\_tutorials/1/4/3/CCS811\_Datasheet-DS000459.pdf. [Accessed: 14-Nov-2017].
+
+\vspace{1mm}
+
+[8]“SparkFun Photon Weather Shield,” DEV-13674 - SparkFun Electronics. [Online]. Available: https://www.sparkfun.com/products/13674. [Accessed: 14-Nov-2017].
+
+\vspace{1mm}
+
+[9]“I2C Humidity and Temperature Sensor,” SparkFun Electronics. [Online]. Available: https://cdn.sparkfun.com/datasheets/Sensors/Weather/Si7021.pdf. [Accessed: 14-Nov-2017].
+
+\vspace{1mm}
+
+[10]“I2C Precision Altimeter,” SparkFun Electronics. [Online]. Available: https://cdn.sparkfun.com/datasheets/Sensors/Pressure/MPL3115A2.pdf. [Accessed: 14-Nov-2017].
+
+\vspace{1mm}
+
+[11]“SparkFun Photon RedBoard,” DEV-13321 - SparkFun Electronics. [Online]. Available: https://www.sparkfun.com/products/13321. [Accessed: 14-Nov-2017].
+
+\vspace{1mm}
+
+[12]Arduino MKR1000 WIFI. [Online]. Available: https://store.arduino.cc/usa/arduino-mkr1000. [Accessed: 14-Nov-2017].
+
+\vspace{1mm}
+
+[13]Arduino Nano. [Online]. Available: https://store.arduino.cc/usa/arduino-nano. [Accessed: 14-Nov-2017].
+
+\vspace{1mm}
+
+[14]“Atmel 8-Bit Microcontroller ,” Atmel. [Online]. Available: http://www.atmel.com/images/Atmel-8271-8-bit-AVR-Microcontroller-ATmega48A-48PA-88A-88PA-168A-168PA-328-328P\_datasheet\_Complete.pdf. [Accessed: 14-Nov-2017].
+
+\vspace{1mm}
+
+[15]Arduino Yún Mini. [Online]. Available: https://store.arduino.cc/usa/arduino-yun-mini. [Accessed: 14-Nov-2017].
+
+\end{document}
