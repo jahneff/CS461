@@ -1,0 +1,257 @@
+\documentclass[IEEEtran,letterpaper,10pt,titlepage,fleqn,draftclsnofoot,onecolumn]{article}
+%notitlepage vs titlepage
+%fleqn left align
+
+%\usepackage{nopageno} %no page numbers
+\usepackage{indentfirst}
+\usepackage{alltt}                                           
+\usepackage{float}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage{graphicx}                                        
+\usepackage{amssymb}                                         
+\usepackage{amsmath}                                         
+\usepackage{amsthm}                                          
+
+\usepackage{balance}
+%\usepackage[TABBOTCAP, tight]{subfigure}
+\usepackage{enumitem}
+\usepackage{pstricks, pst-node}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{listings}
+%allows for code snipets
+
+\geometry{textheight=9.5in, textwidth=7in} 
+
+\newcommand{\cred}[1]{{\color{red}#1}} %think function call, changes text to red
+\newcommand{\cblue}[1]{{\color{blue}#1}} %text to blue
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+  language=c,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\def\name{Brandon Ellis, Jiayu Han, and Jack Neff}
+\def\class{CS 461}
+\def\assignment{Fall Progress Report}
+
+%PDF Properties
+\hypersetup{
+  colorlinks = true,
+  urlcolor = black,
+  pdfauthor = {\name},
+  pdfkeywords = {CS461 Senior Capstone Fall Progress Report},
+  pdftitle = {\class \assignment},
+  pdfsubject = {\class \assignment},
+  pdfpagemode = UseNone
+}
+
+\begin{document}
+%TitlePage
+\begin{titlepage}
+  \begin{center}
+    \vspace{1cm}
+    
+    \huge
+    \textbf{Green Smart Gardening System: Fall Progress Report}
+    
+    \vspace{1.5cm}
+    
+    \large
+        \textbf{Brandon Ellis, Jiayu Han, and Jack Neff}
+    
+    \vspace{5cm}
+    
+    Abstract
+    
+    \normalsize
+    The purpose of this document is to detail the progress that Green Smart Gardening System has made for the fall term. It will cover a brief overview of our project, where we are in our device, problems found, and a retrospective on the work we accomplished by week.
+    
+    \vfill
+    
+    \large
+        CS 461\\
+        Fall Term\\
+    \end{center}
+\end{titlepage}
+
+\section{Our Project}
+
+The Green Smart Gardening System (GS2) is designed to monitor an array of plants and provide the user with relevant environmental information so they can more effectively tend to their plants. It is specifically designed to operate very autonomously, automatically measuring and graphing data as well as drawing power from a solar panel in conjunction with a replaceable battery. The end goal is to produce a microcontroller/sensor/solar panel platform that can monitor an array of plants (say, in a vineyard) and relay the data to a database accessible from a web browser, or possibly a smartphone and tablet app. 
+
+\subsection{What It Is}
+
+The GS2 is an automated smart gardening system. At a high level, it is a device that monitors the environmental factors in a garden and transmits them to where a user can view them. It will not control watering dosage or any other environmental factors. It will only measure them and leave the responsibility of acting on data to the user. When data is viewed, it will be assessed by the system to be a healthy or unhealthy measurement, and indicate to the user what measurement(s) are not at ideal levels. These ideal levels will be determined by research.
+
+\subsection{What It Does}
+
+The GS2 needs several steps to map environmental data to user-oriented views. A sensor array is connected to the microcontroller via cables, and uses I2C protocol to transmit data. The microcontroller will send the raw data via Wifi to a database hosted on Google Cloud. From there, the data will be sanitized into legible numbers, and then packaged together so that each packet will have one measurement from each sensor. These packets will be stored in the database in their own table, with a timestamp in each packet. A combination of PHP and JavaScript will allow us to display the data on a web browser for the user.
+
+\subsection{Who It Is For}
+
+Our clients originally described the system as “one you might find in a vineyard.” So far, we have designed everything with this application in mind. Other applications would include orchards, floral farms, and vegetable gardens. The solar panel/battery combination will be originally calibrated to local Willamette Valley weather, so this system will be most suited to local farmers. 
+
+\section{Goals}
+
+The goal is to design a system that is easy to set up, accurate, and presents data in easily understood ways in real time and over periods of time. It will center around a microcontroller that has internet capability, solar panel power supply with backup battery, and continuously read in relevant data from sensors we have set up. I would say that one of our most important goals to reach is presenting data to the user in the most lightweight, interesting, and relevant possible. We don’t want to provide any clunk or convoluted visuals. Also being able to read consistent and accurate data with the sensors, and have them operate together in relative unison, will be an important goal. Possibly the toughest challenge will be getting all the component parts to communicate with one another in a meaningful way. The data gathered by sensors needs to be sanitized and relayed between systems in order to reach the user in the form of a graph or other visual. Once we reach this goal, we will know we are on the right track.
+
+\section{Where We Are}
+
+At the moment, we have just completed the design phase. We have selected all our sensors, our microcontroller, out battery, solar panel, database, and server platform. Several microcontrollers and sensors have already been ordered, along with breadboards. Over the next few weeks we plan to familiarize ourselves with the microcontroller and sensors, and test them to the best of our abilities. We plan to test in one of the greenhouses on campus, because they have temperature and humidity gauges we can compare our own data to. While we mess around with these components, we will also be familiarizing ourselves with the Google Cloud Platform, where our database and front-end application will be stored. By the time the next semester starts, we expect to be able to accurately read raw data with our sensors and translate it into legible numbers. Also we expect to have a functioning database and low-level PHP/JQuery-based views of the placeholder data within. 
+
+\section{Problems Impeding Progress}
+
+So far, problems have been minimal. Finding reliable sensors is one of the more persistent ones, and won’t be resolved until we have tested and verified all the sensors we will use. Many of the sensors available online have mixed reviews, so we will need to personally test all our sensors for accuracy. Another problem we ran into was our initial preferred microcontroller was discontinued a short time ago, and was the only microcontroller that suited all of our functionality needs while also providing a Bluetooth module. We found a nice replacement, but it lacks Bluetooth, which we had thought about implementing as a stretch goal, for use when the user is away from their computer and instead is near the system itself. 
+
+\section{Retrospective of Past 10 Weeks}
+
+Note: With the amount of information that our group wanted to cover for this section, we elected not to display it in the format of a grid. Instead we have our retrospective broken down by week with each instance covering any activities, problems, and solutions that came up that week.
+
+\subsection{Week 1}
+\subsubsection{Activities}
+
+This is before we were in a group together. We submitted our project preferences this week.
+
+\subsubsection{Problems}
+
+N/A
+
+\subsubsection{Solutions}
+
+N/A
+
+\subsection{Week 2}
+\subsubsection{Activities}
+
+We were assigned our project this week. The three of us met together to introduce ourselves and talk about our vision for the project. We then contacted our  clients and decided to set up a weekly meeting. After discussing what we thought the product would end up like, we began to write our individual problem statements. 
+
+\subsubsection{Problems}
+
+None
+
+\subsubsection{Solutions}
+
+None
+
+\subsection{Week 3}
+\subsubsection{Activities}
+
+We met with our TA, Daniel Lin, for the first time. He recommended not being shy when contacting clients. We met with our clients on Thursday, which became our weekly meeting slot. We used the Skype Business app. The clients outlined their vision for the project to us, and we shared our Github repo with them. We also completed our problem statements. 
+
+\subsubsection{Problems}
+
+Jack had a time conflict and couldn’t make the TA meeting. 
+
+\subsubsection{Solutions}
+
+Brandon began to communicate the topics of the meeting to Jack afterwards, so he could stay updated.
+
+\subsection{Week 4}
+\subsubsection{Activities}
+
+This week we began our preliminary research, looking online for microcontrollers, sensors, and smart gardening setups implemented by others in the past.We also looked into available microcontrollers, especially at their power consumption. We put together our group problem statement. This is the week our clients shared a Google Drive presentation with us to store meeting notes and design ideas. This became a very important resource in later weeks. 
+
+\subsubsection{Problems}
+
+None
+
+\subsubsection{Solutions}
+
+None
+
+\subsection{Week 5}
+\subsubsection{Activities}
+
+We settled on all the environmental variables we wanted to measure, and then did online research to make sure that it was possible to find compatible sensors to measure all of them. We discussed this research with our TA and clients, and began work on the Requirements document. The TA advised us on the writing of the requirements document, and our clients tasked us with researching the components deeper the following week.
+
+\subsubsection{Problems}
+
+Many sensors that looked promising initially operate at different voltages. Some sensors are 5.0V, some are 3.3V, and some microcontrollers can handle one of the two, some both. 
+
+\subsubsection{Solutions}
+
+We decided to assume both cases, so we made component lists for a 3.3V setup and a 5.0V setup. The lists were mostly the same, but a few of the sensors were different. We would decide which to use after selecting our microcontroller. 
+
+\subsection{Week 6}
+\subsubsection{Activities}
+
+Our group confirmed our preliminary selections of sensor and microcontroller parts, and created a block diagram to show how the system would all be connected. We decided to go with a 3.3V system, because the components in that version of our setup seemed to be more reliable, based on the online reviews. Also, they all were supportive of I2C, a low-level communication protocol. We started getting more into the research of the solar panel, and began writing our tech reviews. In the weekly meeting, our clients requested we finalize our component list so that they could order the parts. Finally we completed and submitted our group requirements document. 
+
+\subsubsection{Problems}
+
+No problems that had to be solved this week, but after selecting some components and creating a block diagram, a few future problems we would need to solve became clear. For one, we are going to face one of our largest challenges transferring raw data from these low-level sensors to this intermediary microcontroller, and then outputted over WiFi high-level database.
+
+\subsubsection{Solutions}
+
+We plan to use I2C to connect the sensors to the controller. We then need to connect the controller to WiFi. Depending on the microcontroller we choose, we may or may not need to purchase an additional WiFi module. Over the WiFi we need to send data, probably using UDP, to our web server and accompanying database. 
+
+\subsection{Week 7}
+\subsubsection{Activities}
+
+In week 7, we finished our requirements document, and partially completed our final component list. We selected all the sensors, and the solar panel. The only thing left is the microcontroller and battery, which we discussed with our clients in the weekly meeting. We divided the project up for the technology review. This division will likely continue throughout the project. Brandon is in charge of the sensors and the microcontroller, Jiayu is in charge of the microcontroller power supply, the solar panel, and the physical design of the system. Jack is handling the database, UI, and web server implementation. 
+
+\subsubsection{Problems}
+
+We learned that our first choice for microcontroller, the Arduino 101, is no longer in production. Although they’re still available for purchase, there is no point in building a system with an obsolete piece of tech as the centerpiece. 
+
+\subsubsection{Solutions}
+
+One of our clients offered his personal opinion for the microcontroller we should select, the MKR1000. We are going to research it next week. 
+
+\subsection{Week 8}
+\subsubsection{Activities}
+
+We finished our individual tech reviews. Also had our testing approved by the OSU Greenhouse. We discussed our chosen microcontrollers, finalized component list, and options for the web server with clients. They recommend we check the capstone lab and see if they have any of the microcontrollers or other components we need. 
+
+\subsubsection{Problems}
+
+None
+
+\subsubsection{Solutions}
+
+None
+
+\subsection{Week 9}
+\subsubsection{Activities}
+
+Just research and Thanksgiving this week. 
+
+\subsubsection{Problems}
+
+Too Much Turkey
+
+\subsubsection{Solutions}
+
+Eat The Turkey
+
+\subsection{Week 10}
+\subsubsection{Activities}
+
+Design is finalized. Several sensors and microcontrollers have been ordered by the clients for familiarizing ourselves with. The implementation plans for all components are finished. We finished our design document, and progress report. Our clients told us to go study sensor interfacing with the microcontroller, back end database implementation, data visualization, and the Wi-Fi interface of the microcontroller. 
+
+\subsubsection{Problems}
+
+None
+
+\subsubsection{Solutions}
+
+None
+
+\end{document}
