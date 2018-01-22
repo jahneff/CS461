@@ -1,5 +1,5 @@
-# CS461
-Respository for Green Smart Gardening Project
+# Capstone-GS2 (Green Smart Gardening System)
+Respository for Green Smart Gardening System Project
 
 Authors: Jiayu Han, Brandon Ellis, Jack Neff
 
