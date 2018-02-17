@@ -1,0 +1,225 @@
+\documentclass[IEEEtran,letterpaper,10pt,titlepage,fleqn,draftclsnofoot,onecolumn]{article}
+%notitlepage vs titlepage
+%fleqn left align
+
+%\usepackage{nopageno} %no page numbers
+\usepackage{indentfirst}
+\usepackage{alltt}                                           
+\usepackage{float}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage{graphicx}                                        
+\usepackage{amssymb}                                         
+\usepackage{amsmath}                                         
+\usepackage{amsthm}                                          
+
+\usepackage{balance}
+%\usepackage[TABBOTCAP, tight]{subfigure}
+\usepackage{enumitem}
+\usepackage{pstricks, pst-node}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{listings}
+%allows for code snipets
+
+\geometry{textheight=9.5in, textwidth=7in} 
+
+\newcommand{\cred}[1]{{\color{red}#1}} %think function call, changes text to red
+\newcommand{\cblue}[1]{{\color{blue}#1}} %text to blue
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+  language=c,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\def\name{Brandon Ellis, Jiayu Han, and Jack Neff}
+\def\class{CS 462}
+\def\assignment{Winter Midterm Progress Report}
+
+%PDF Properties
+\hypersetup{
+  colorlinks = true,
+  urlcolor = black,
+  pdfauthor = {\name},
+  pdfkeywords = {CS462 Senior Capstone Winter Midterm Progress Report},
+  pdftitle = {\class \assignment},
+  pdfsubject = {\class \assignment},
+  pdfpagemode = UseNone
+}
+
+\begin{document}
+%TitlePage
+\begin{titlepage}
+  \begin{center}
+    \vspace{1cm}
+    
+    \huge
+    \textbf{Green Smart Gardening System: Winter Midterm Progress Report}
+    
+    \vspace{1.5cm}
+    
+    \large
+        \textbf{Brandon Ellis, Jiayu Han, and Jack Neff}
+    
+    \vspace{5cm}
+    
+    Abstract
+    
+    \normalsize
+    The purpose of this document is to detail the progress that Green Smart Gardening System has made for the first portion of Winter term. It is broken down first by our group members and then by their work done, usually broken down into a week by week synopsis. After the report on progress, each member then has a note on the work that is planned out for them individually for the rest of the term.
+    
+    \vfill
+    
+    \large
+        CS 462\\
+        Winter Term\\
+    \end{center}
+\end{titlepage}
+
+\section{Introduction}
+
+This document details the work done by individual group members during the first portion of the term. We have this report divided by group members initially. Each member then has their own division of information, usually by a chunk of time. Each member also briefly covers the work planned for the remainder of this term.
+
+\section{Brandon Ellis}
+
+\subsection{Introduction}
+
+This report on my work this term is broken down into sections based on time. The majority of the sections are just going on a week by week basis, however the first section that I will cover spans the duration of final week of Fall Term and the following Winter break. After these sections I will briefly cover the work that I will be completing for the rest of the term.
+
+\subsection{Winter Term}
+
+As mentioned above, this section will cover work done during the prior term’s finals week and the Winter break that followed. During this period we met with our clients once, which was finals week at the regularly scheduled time. This was a very quick, touch base style meeting, prior to our group going on break and vacation time kicked in at Intel. We mostly covered and confirmed choices for different components and started planning for some of our later tasks, like packaging. Besides this meeting, during finals week we finished touching up our Fall Term Progress Report and submitted the report, slides, and video to Kirsten, Kevin, and Dan. This completed the work done during finals week.
+
+For the duration of Winter break, we were fortunate enough to get three MKR1000’s (our choice Arduino board) and two BME280 Sensors (measures air temperature, humidity, and barometric pressure) shipped to use from our clients. These arrived, approximately, one to two weeks into break. I used some of my time during break to research soldering until I felt comfortable with the process. That’s when it all started…. (adding dramatic tension, spoiler: everything worked out). The soldering that needed to be done for our device was attaching a series of pins to the BME280, thankfully the MKR1000 variant we purchased had pre-soldered headers. The soldering went well but when I hooked up the BME280 to the MKR1000, in both I2C and SPI modes, no connection could be made. I attempted several different solutions but could not get this problem fixed until we reconvened this term.
+
+The final work that I did during Winter break was related to the functionality that would be required for the MKR1000. One of the things done to accomplish this was looking into different scheduler libraries, which was and is our primary way of controlling different pieces of functionality with timed calls. Another major piece of research done was getting familiar with the WiFi101 library that our MKR1000 would use control its onboard WiFi module. I also spent some time developing very simple test programs on the Arduino, making a led turn on for example, just to familiarize myself with the environment. 
+
+\subsection{Week 1}
+
+The first week of this term was mainly spent getting our bearings, passing out the components shipped to me over break, and preliminary scheduling. Besides having class this week, we met with our clients to cover what we had worked on over break and where we were heading. Most of this was just recapping work from the prior term, however we did update our clients on documentation that we would need to get verified (specifically the Design Document) and they also requested an action item of creating a more detailed schedule for our work until Expo. I also brought up the issue of my lack of connectivity with the BME280, I had yet to seriously debug the issue (my assumption was that the soldering mapped two pins together, but I had not eliminated other possibilities yet).
+
+\subsection{Week 2}
+
+This week we had our first TA meeting of the term. It went pretty standardly, we just touched base and then met as a group after to discuss action items for the current week. To that end, I spent my time this week working on eliminating possible reasons why the BME280 was not connecting. I did notice a problem with my wiring but solving this still resulted in no connection being established. Next, I attempted testing whether a connection was even made to the BME280. What I mean when I say that, is I was unsure if any information was flowing in-between the two and I didn’t get feedback before it encountered an error, or if the problem was that no communication could happen at all. My solution was to use a piece of Arduino functionality called Serial.print, this can essentially be looked at as a print statement that can be read in a command line form when connected to a computer for development. I had yet to see any print statements, which led me to a handy solution which forced the instantiation of Serial prior to continuing (“while(!Serial) ;”). This got the device to print successfully but did not solve the connection issue. This led me to continue to assume the pins were a problem, which I reported at our client meeting that week. The action item that was discussed, that pertained to me, was to send pictures of my soldering and wiring to them so they could offer their expertise and to look into possible SD card reader options. 
+
+\subsection{Week 3}
+
+After emailing our clients their requested pictures, I began filling out a rough draft of the schedule our clients requested Week 1. Our group met with Dan, our TA, where he recommended continuing to work on the schedule. Aside from the schedule, the other work I did was related to presenting SD card reader options to our clients. During the client meeting, I submitted the schedule to them as well as two options for the SD card reader. I also brought up the Design Document verification, which we got that afternoon if memory serves, and if they knew of any policy restrictions on using the Intel logo or name. The action items assigned to me were, due to them still checking the BME280 on their end, to implement the BME280 connection with SPI just to confirm I2C was not the problem and to look into getting access to a multimeter to check the soldered pin connections.
+
+\subsection{Week 4}
+
+The most notable occurrence this week (and finally closure for your eager anticipation reader) was the fixing of the BME280 connection. On our clients’ end they tested out the identical setup that I was running with their sensors. They were able to get a valid connection, while I was able to vet my pins with a multimeter. In an email chain, they supplied me with their code and the associated libraries. Bet you thought my code was wrong huh? Nope, the libraries were to blame. Replacing one of the libraries (specifically the Adafruit general sensor connection) on my end immediately allowed the connection to work. I had also tested SPI, but this was prior to the library solution and had no effect. I was able to update the clients on this and then took getting a connection from the MKR1000 to Jack’s database as an action item for the next week.
+
+\subsection{Week 5}
+
+This week I spent the majority of my time working with Jack to complete a connection from our device to the database. Using the supplied WiFi101 library we first ensured we could connect to Kelley WiFi, which was a challenge in itself compared to connecting to our home networks. From here we used a client connect to server method provided by the library to establish a connection to the database. Once we created a dummy SQL table, we were able to successfully post dummy data to. After this I started work on the poster and once I had a decent rough draft of the rough draft I touched base with Kirsten about poster ideas and suggestions. At the client meeting this week Jack and I were able to confirm the connection between the device and our database. The action item that I took after this was combining the BME280 sensor code, the WiFi connection (in the form of connectivity checks and different connection methods so we can swap easier depending on our location), and the connection to the database. During this point I would also create the scheduler that will call these different pieces of functionality, as well as (hopefully) doing this in a way that can be modular for easy future additions.
+
+\subsection{Week 6}
+
+During this week we attended the class session on prepping our pitches and aiming our poster towards different groups. This was a very helpful session and we were able to get some great feedback from other classmates on what they thought we could tweak. Besides this I was able to make progress on the combination of functionality mentioned above, but it still has a little bit more that needs to be added. The main focus this week was submitting our rough draft poster, prepping this document, and its associated video.
+
+\subsection{What's Next?}
+
+This section details the work that I have laid out for the rest of this term. First, I will be working on finishing the core logic on the microcontroller and the merging of pieces of functionality. This will finalize the base that sensor connections can be built on. To that end, I will then add the already tested air sensor code and, after, the code for the soil moisture and pH sensors. I would just have to tweak the already created database output to add these sensors. At this point my requirements would be done and I could focus on expo presentation prepping, testing, and supporting other tasks.
+
+\section{Jiayu Han}
+\subsection{Introduction}
+
+Based on the sections we assigned last term, I am working on the wireless connection, power and packaging this Winter term. During the Winter break, we had parts of the components we need for the project shipped to Brandon`s house, including 3MKR1000 micro-controllers and 2 BME280 sensors. However, I was not in town during Winter break, I only did some study on how MKR1000 micro-controller works. 
+
+For now, the wireless connection is finished so that we can send dummy data into the database through Wi-Fi now. Theoretically, the power section is done based on the design from the design document last term. Since we just have the solar panel and the battery in the shopping list, we have not had a chance to test them. I am currently studying how to build a 3D model with Google Sketchup.  
+
+Following sections are the brief description for the work I did by chronological order and what is left to do.
+
+\subsection{Week 1}
+
+During this week, there was not a lot works done since it was the start of the term. We had quick meeting within the group to pass out the MKR1000 to make sure everyone had a micro-controller to work with. We rescheduled with TA based on our new schedule to Tuesday 1:15pm. The TA meeting for week 1 was cancelled since there was nothing really done during the Winter break. We had a quick meeting with the client to briefly inform them about our Winter term schedule. The main thing was done this week was getting the MKR1000 set up.
+
+\subsection{Week 2}
+
+During this week, we had our first TA meeting. I missed the TA meeting due to the mis-schedule. We also had a group meeting to setup the plan for week 2 and week 3. Based on the importance, I started with the Wi-Fi section during week 2. Since there were a lot MKR1000 projects online, I was able to look up the tutorials they posted for connecting to Wi-Fi. Later, I started messing up with the open source code I found online for Wi-Fi scanning ability to make it fit our project. Mostly, I was just learning how to use the Arduino IDE and researching on how to do the Wi-Fi connection on MKR1000. We had a client meeting for what we had accomplished in week 2 and the plan for week 3.
+
+\subsection{Week 3}
+
+During this week, we were individually working on our own sections based on last week`s plan. By the beginning of the week, I was able to get the MKR1000 fully connected to Wi-Fi by taking the inspiration online. By doing the little twist with the open source code I found, we had the connection setup. For rest the week, I started looking into the power section. During the client meeting, we had our work progress report for week 3. And I was asked to look for level shifting since voltage might be an issue.  We also got the design document verification from the client for the updated version of design document based on their opinions.
+
+\subsection{Week 4}
+
+During this week, one of the biggest problem occurred on my side. I was not able to get the board connected to the computer. The computer was not able to detect the board through the COM/PORT. I spent the first 2 days trying to solve the problem. However, I was not able to get it to work. After the TA meeting on Tuesday, I tested it with Brandon`s computer and we had the same issue, which seemed like the board might had some problem. I ended up posting the code I found on Github Wiki page for Brandon and Jack to access it. Other than that, I was on the power section. Since I had little to none knowledge about the hardware, I wasted almost 2 days worrying about the max current on the battery may burn the board. A lot of research were done for our secondary plan, which was building the solar panel and batteries into a power circuit. Unfortunately, I missed the client meeting. I talked to my teammates and got informed about the meeting and the future plan.
+
+\subsection{Week 5}
+
+During this week, I was mainly working on finishing the power section. In theory, the MKR1000 had ability to do power switching and getting powered from 3.3v to 5v. The power should not be a big problem theoretically. During the client meeting, I was able to do the report on the power section for both plan A and plan B. Our client preferred plan A, which we directly connect both the solar panel and battery to the micro-controller and let the controller do the charging. I was also able to report the issue I had about my MKR1000 board. It was not a big problem at the moment since I already finished the code section. And the client informed me that they wanted me to start working on the packaging. By talking to an interior designer who had experience using 3D modeling software, I was suggested to start with Google Sketchup. For rest of the week, I was mainly just learning how to use Sketchup based on online tutorials.
+
+\subsection{Week 6}
+
+During this week, we had a class session on Tuesday to learn what we need to do and pay attention to for the pitches and the posters. We did our in-class practice for the pitch and got some good feedbacks. After the client meeting for this week, we sent out the shopping list for the new MKR1000 board, solar panel, battery and other sensors for the following work to be done. Our main goal for this week was finish the poster rough draft and the mid-term progress report.
+
+\subsection{What's Next?}
+
+For the rest the term, I still need to work on the power section testing and mainly packaging design. Since we just sent out the shopping list, the power section testing will start after week 7. I will be working on the packaging design with clips inside for easy installation. I still need to wait for all the components to arrive to do the measurement for packaging design and the power section testing.
+
+\section{Jack Neff}
+\subsection{Introduction}
+
+I was charged with the implementation of the front end of the Green Smart Gardening System, including the display of data to the user, and the interface through which the user interacts with the system. The other part of my job was arranging the database in which all relevant data is stored. In contrast to my group members, who need to perform varying levels of hardware interaction, nearly all of the work I do is software engineering done on a PC. 
+
+\subsection{Week 1}
+
+Our clients had ordered microcontrollers for us before break, so by the time we got back to town, we each were able to get our hands on one. Although strictly speaking I didn’t need to, I spent the first few days back from break setting up and getting acquainted with my microcontroller. I decided it would make for easier testing if I could load and run programs on the microcontroller on my own rather than tracking down Brandon or Jiayu every time I wanted to test something. So far I would say this time spent was limited in its usefulness, since I have not needed to operate the microcontroller on my own to reach any of the milestones we have arrived at over the past six weeks. 
+
+The other thing I did during week 1 was to start setting up our HTTP server through Google Cloud Platform, a platform specifically requested by the clients. The GCP is very complex, and during the first week I spent most of my time fiddling and deploying VM or server instances that I have since deleted. This time was well spent though, as I learned a lot of information about GCP that proved useful in the following weeks. 
+
+\subsection{Week 2}
+
+After our first client meeting, we decided that my first task would be deploying and configuring a MySQL database, so I immediately set out to do that. First, I did a little designing on paper, but our database structure is so simple that the ER diagrams were almost trivial. After designing the database, I deployed an instance of MySQL on GCP and configured it. This required deploying a VM, and then installing MySQL from that VM through the command line. 
+
+Next I moved on to the HTTP server, which we had planned to set up through LAMP, a popular server stack that runs Linux and an Apache server. After a lot of fiddling, and the deployment of a new VM, I finally got it installed. This new VM was smaller than the previous ones I had deployed. This saved us money on compute time, which GCP charges for based on power cost. I also needed to delete the old database and recreate the configuration on the LAMP stack, which was easier because LAMP comes with the application phpMyAdmin, which is a great help for database configuration. 
+
+\subsection{Week 3}
+
+Now that the server stack, MySQL, and the VM were all setup, I needed to define my workflow for the development stage. Although I was able to ssh into the VM, and then write PHP files in the html directory that would be displayed on web pages, this process was slow and clunky. I wanted to set up the capability of transferring files to and from the VM, so I could program in an IDE and then upload files to the VM (e.g. Filezilla). This was a difficult process that I did not complete within the week, although I did find a limited file upload/download capability in the GCP shell itself, that held me over until I found a better solution. During this week I programmed the initial PHP files that proved the system was up and running, and accessible from any web browser. 
+
+\subsection{Week 4}
+
+This is the week when the database and server development really picked up. I was able to connect the MySQL database with the PHP pages so that they could query the database, and display its data. As I mentioned earlier, I resized the VM in week 2 to be a lot cheaper (I had moved from 2 CPU standard  to micro). However this new VM was horribly slow because it shared CPUs instead of having its own, and took over an hour to install software package. I resized the VM again this week to single-core standard, which has one dedicated CPU and 3.5 GB of memory. This size has worked well since I deployed it, so it has been our active VM for the past month (and still is at the time of this report). 
+
+This was the first week when our clients gave us a concrete deadline. By the time of the week 5 meeting, they expected us to show the ability to read sensor data into the microcontroller, and then transfer it via Wi-Fi to the database.
+
+\subsection{Week 5}
+
+In week 5, our whole group met up several times at Kelley to try to accomplish what the clients laid out for us. Eventually we successfully sent a piece of data from the microcontroller to the database, using a post request sent to a PHP page, which parsed the request and inserted it into the database with a MySQL query. I spent the rest of the week scaling up the insertion and display capabilities to allow for the insertion of full timestamps and the display of entire tables on the web pages. At this point in time our server is not secure at all. Our SQL database is password protected, but anyone who sends a post request to our PHP page will be able to insert data in the database because the password is hard coded in the page itself. 
+
+In the client meeting this week, I brought up the idea of making a visit out to a vineyard. A family friend who owns one offered to show us around, and since our project is designed with a vineyard application in mind, I thought it might be productive to go check one out. As of the time of this report, the visit is still in the process of being scheduled. 
+
+\subsection{Week 6}
+
+This week I began to work with data display software. I downloaded the d3.js library and started making small graphs and animations, using some dummy data. In order to ease testing and get a better idea of the capabilities of d3.js, I wrote a script to populate the table with many rows of dummy data. Currently I am getting acquainted with d3.js and doing a lot of research on it. It seems promising as a lightweight yet attractive way to display our data to users.
+
+I finally was able to use WinSCP to perform easy file transfer between my machine and the VM, greatly speeding the task of editing old files and uploading new ones. I also spent time increasing the security of the database, writing in a verification step that checks for a certain token whenever data is received. Data is only inserted into the database if the token can be validated. This should restrict access to only our microcontroller, into which we will hard code the verification token. 
+
+\subsection{What's Next?}
+
+Over the next several weeks, I will be doing a few things. I will first be increasing the security of our application by removing hard-coded passwords and distributing passwords to my group. As a continuation of this security increase I will implement a login system through which a user must register before viewing any of our web pages. Next, I will be expanding on data display and trying to build a “dashboard” that users will use as their home page. It will provide simple graphs and links to important features. By week 10, our user interface should feel like a professional web site, complete with secure user accounts and login functionality. When I have a better idea of what the site is going to look like, I will design a user study to make sure everything fits together in a way that makes sense. However, I am unable to write one at this time because the web pages have many iterations to go through before they even resemble their final state. After the site looks and feels finished, I may attempt to implement some simple data analysis functionality, to make the generated graphs feel “smarter.” This has been a stretch goal from the beginning, so if I don’t get around to it, it is not an issue. However, I would like to see our system be capable of some rudimentary level of data analysis, at least. 
+
+\section{Conclusion}
+
+As a group, we feel like we have achieved our goals up to this point. The design we laid out last term is still intact, and seems to be coming together nicely. The timetable as well seems to have been achievable up to this point, as we have achieved a large chunk of our end functionality so far this term, especially in the last few weeks. Many of the important features, such as sensor functionality, microcontroller logic, and data transfer, have already been completed. What remains are some final pieces of functionality, and a significant amount of polishing and refactoring of all components. 
+
+\end{document}
