@@ -31,6 +31,9 @@
 #include <TaskScheduler.h>
 #include <TaskSchedulerDeclarations.h>
 
+//Header Files
+#include "secrets.h"
+
 
 /* ############################################################
  * Globals - BME
@@ -54,16 +57,31 @@
 Adafruit_BME280 bme;
 
 
-/* ###################
+/* ##########################################
  * Globals - Variables
  * 
  * HOUR   - 1 hour   = 2,600,000 milliseconds
  * MINUTE - 1 minute =    60,000 milliseconds
  * SECOND - 1 second =     1,000 milliseconds
- * ############## */
+ * ########################################## */
 #define HOUR 2600000
 #define MINUTE 60000
 #define SECOND 1000
+
+
+/* ######################################
+ * Globals - WiFi
+ * 
+ * ssid - ssid to connect to,
+ *    defined by secrets.h
+ * pass - password for a specific network,
+ *    if one is needed
+ *    if not, will ommit in later call
+ * status - WiFi's current status
+ * ####################################### */
+char ssid[] = SECRET_SSID;
+char pass[] = SECRET_PASS;
+int status = WL_IDLE_STATUS;
 
 
 /* ###############################################
@@ -79,27 +97,43 @@ Adafruit_BME280 bme;
  * Callback Defining
  *  The work that the task will accomplish
  * ############################################### */
-void core_task();
+void core_callback();
 
-Task task_1(SECOND, TASK_FOREVER, &core_task());
+
+int five_sec = 5 * SECOND;
+Task core_task(five_sec, TASK_FOREVER, &core_callback);
 
 Scheduler runner;
 
-void core_task()
+void core_callback()
 {
-  Serial.print("DEBUG: In core_task");
+  //DEBUG INFO
+  Serial.println("DEBUG: In core_task");
   Serial.print("DEBUG: Time to run in Millisecond - ");
-  Serial.print(millis());
+  Serial.println(millis());
 
-  if (task_1.isFirstIteration()) 
+  //Iteration Checks
+  if (core_task.isFirstIteration()) 
   {
-      Serial.print("DEBUG: First Run");
+    Serial.println("DEBUG: First Run");
   }
 
-  if (task_1.isLastIteration()) 
+  if (core_task.isLastIteration()) 
   {
-    Serial.print("DEBUG: ERROR OCCURED - core_task last run");
+    Serial.println("ERROR OCCURED - core_task last run");
   }
+
+  //##################
+  //WORK DEFINED BELOW
+  //##################
+  //dummy work
+  //print_wifi_status();
+  
+  //Is WiFi Connected?
+  check_wifi();
+  
+  //Create whitespace to help differentiate
+  Serial.println("");
 }
 
 
@@ -112,21 +146,91 @@ void setup()
    * ################################ */
   Serial.begin(9600);
   while(!Serial) ;
-  
-  /* ###############
-   * WiFi Connection
-   * ############### */
+  Serial.println("DEBUG: Serial Up");  
 
+  /* ##########
+   * Wifi Setup
+   * ########## */
+  connect_wifi();
   
   /* ###############
    * Scheduler Setup
+   *  .init - initialize the scheduler
+   *  .addTask - add core task to scheduler
+   *  delay - 5 seconds to get scheduler up
+   *  .enable - start core task
    * ############### */
-   
-  
+  runner.init();
+  runner.addTask(core_task);
+  delay(5000);
+  core_task.enable();
+  Serial.println("DEBUG: Core Task Up");
 }
 
+
+/* ##############
+ * Loop = Main()
+ * ############## */
 void loop() 
 {
-  // put your main code here, to run repeatedly:
+  runner.execute();
+}
 
+
+/* ############################################
+ * WiFi Connection
+ *  while()
+ *    prints ssid of attempted connection
+ *    attempts connection
+ *      pass:   status = WiFi.begin(ssid, pass)
+ *      nopass: status = WiFi.begin(ssid)
+ *    holds for connection
+ *      5000 milliseconds = 5 seconds
+ * #####EE##################################### */
+void connect_wifi() 
+{
+  while(status != WL_CONNECTED) {
+    Serial.print("DEBUG: Attempting to connect to SSID: ");
+    Serial.println(ssid);
+    status = WiFi.begin(ssid);
+    delay(5000);
+  }
+  Serial.println("DEBUG: Connected to Network");
+}
+
+
+/* #################################################
+ * Checks if the device is still connected to wifi
+ *  ran each round of task
+ *  if not connected, call connect_wifi and attempt,
+ *    to connect
+ * ################################################# */
+void check_wifi(){
+  if(status != WL_CONNECTED)
+  {
+    Serial.println("ERROR: WiFi - Not Connected to WiFi");
+    Serial.println("ERROR: WiFi - Attempting to Connect");
+    connect_wifi();
+  }
+}
+
+
+/* ######################################################
+ * Prints information about current (possible) connection
+ *  current network connected to
+ *  current ip address of device
+ *  signal strength
+ * ###################################################### */
+void print_wifi_status() {
+  Serial.print("DEBUG: SSID - ");
+  Serial.println(WiFi.SSID());
+
+  IPAddress ip = WiFi.localIP();
+  Serial.print("DEBUG: IP Address - ");
+  Serial.println(ip);
+
+  long rssi = WiFi.RSSI();
+  Serial.print("DEBUG: Signal Strength (RSSI) - ");
+  Serial.print(rssi);
+  Serial.println(" dBm");
 }
