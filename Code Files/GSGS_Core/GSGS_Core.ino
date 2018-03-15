@@ -53,9 +53,12 @@
  * // #define BME_MOSI 11
  * // #define BME_CS 10
  * // Adafruit_BME280 bme(BME_CS, BME_MOSI, BME_MISO, BME_SCK);
+ * 
+ * //#define SEALEVELPRESSURE_HPA (1000.25) // need to change the relative HPA for acurate measuring
+ *  used for altitude
  * ############################################################ */
-Adafruit_BME280 bme;
-
+Adafruit_BME280 bme; //I2C
+unsigned long delayTime;
 
 /* ##########################################
  * Globals - Variables
@@ -83,6 +86,11 @@ char ssid[] = SECRET_SSID;
 char pass[] = SECRET_PASS;
 int status = WL_IDLE_STATUS;
 
+/* ################
+ * Database Connect
+ * ################ */
+IPAddress server(35,227,147,235); 
+WiFiClient client;
 
 /* ###############################################
  * Scheduler Setup
@@ -98,13 +106,9 @@ int status = WL_IDLE_STATUS;
  *  The work that the task will accomplish
  * ############################################### */
 void core_callback();
-
-
 int five_sec = 5 * SECOND;
-Task core_task(five_sec, TASK_FOREVER, &core_callback);
-
+Task core_task(MINUTE, TASK_FOREVER, &core_callback);
 Scheduler runner;
-
 void core_callback()
 {
   //DEBUG INFO
@@ -120,7 +124,7 @@ void core_callback()
 
   if (core_task.isLastIteration()) 
   {
-    Serial.println("ERROR OCCURED - core_task last run");
+    Serial.println("ERROR: core_task last run");
   }
 
   //##################
@@ -128,9 +132,23 @@ void core_callback()
   //##################
   //dummy work
   //print_wifi_status();
-  
+
+  //connect to given Wifi network
+  //  moved from Setup, will make WiFi not be on when connection isn't needed 
+  connect_wifi();
+
+  //old version, connect_wifi ensures WiFi connected
   //Is WiFi Connected?
-  check_wifi();
+  //check_wifi();
+
+  //collect data, connect to database, send data
+  postData();
+
+  //check for database response, end connection
+  check_response();
+
+  //close WiFi connection
+  close_wifi();
   
   //Create whitespace to help differentiate
   Serial.println("");
@@ -147,11 +165,6 @@ void setup()
   Serial.begin(9600);
   while(!Serial) ;
   Serial.println("DEBUG: Serial Up");  
-
-  /* ##########
-   * Wifi Setup
-   * ########## */
-  connect_wifi();
   
   /* ###############
    * Scheduler Setup
@@ -165,6 +178,17 @@ void setup()
   delay(5000);
   core_task.enable();
   Serial.println("DEBUG: Core Task Up");
+
+  /* #########
+   * BME Setup
+   * ######### */
+   bool BME_status;
+   BME_status = bme.begin();
+   if (!BME_status) {
+        Serial.println("ERROR: BME - Could not find a valid BME280 sensor");
+        while (1);
+   }
+   delayTime = 2000;
 }
 
 
@@ -186,16 +210,26 @@ void loop()
  *      nopass: status = WiFi.begin(ssid)
  *    holds for connection
  *      5000 milliseconds = 5 seconds
- * #####EE##################################### */
+ * ############################################ */
 void connect_wifi() 
 {
   while(status != WL_CONNECTED) {
     Serial.print("DEBUG: Attempting to connect to SSID: ");
     Serial.println(ssid);
-    status = WiFi.begin(ssid);
-    delay(5000);
+    status = WiFi.begin(ssid, pass);
+    delay(10000);
   }
   Serial.println("DEBUG: Connected to Network");
+}
+
+/* ####################################
+ * Closes the given WiFi Connection
+ *  Considerably easier than connecting
+ * #################################### */
+void close_wifi()
+{
+  WiFi.end();
+  Serial.println("DEBUG: Connection to Network Closed Gracefully");
 }
 
 
@@ -205,7 +239,8 @@ void connect_wifi()
  *  if not connected, call connect_wifi and attempt,
  *    to connect
  * ################################################# */
-void check_wifi(){
+void check_wifi()
+{
   if(status != WL_CONNECTED)
   {
     Serial.println("ERROR: WiFi - Not Connected to WiFi");
@@ -221,7 +256,8 @@ void check_wifi(){
  *  current ip address of device
  *  signal strength
  * ###################################################### */
-void print_wifi_status() {
+void print_wifi_status()
+{
   Serial.print("DEBUG: SSID - ");
   Serial.println(WiFi.SSID());
 
@@ -233,4 +269,158 @@ void print_wifi_status() {
   Serial.print("DEBUG: Signal Strength (RSSI) - ");
   Serial.print(rssi);
   Serial.println(" dBm");
+}
+
+/* ############################################
+ * Sends information to Database
+ *  makes initial variables
+ *  makes call to data build_data()
+ *  connects to database and sends HTTP request
+ * ############################################ */
+ void postData() 
+ {
+    //core string parts
+    String send_start    = "GET ";
+    String send_php_page = "/insert_data.php?";
+    String send_data;
+    String send_end      = " HTTP/1.1";
+    String send_full;
+
+    send_data = build_data();
+
+    send_full = send_start + send_php_page + send_data + send_end;
+    
+    // If there's a successful connection, send
+    if (client.connect(server, 80)) {
+      Serial.println("DEBUG: Connected to Server");
+      client.println(send_full);
+      client.println("Host: 35.227.147.235");
+      client.println("Connection: close");
+      client.println();
+      Serial.println("DEBUG: Finished Connection");
+    } 
+    else {
+      //Connection failed
+      Serial.println("ERROR: Connection Failed");
+      client.stop();
+    }
+}
+
+
+/* #####################################
+ * Checks if database call gets response
+ *  prints response
+ *  closes connection when it's ended
+ * ##################################### */
+void check_response() 
+{
+  //if there is a response, print to Serial
+  Serial.println("DEBUG: Server Response:");
+  while (client.available()) {
+    char c = client.read();
+    Serial.write(c);
+  }
+
+  // if server disconnected, close connection
+  if (client.connected()) {
+    Serial.println();
+    Serial.println("DEBUG: Disconnecting From Server Gracefully");
+    client.stop();
+  }
+}
+
+/* ##################################
+ * Builds data string to post
+ *  makes calls to sensors
+ *  builds data into string with keys
+ *    keys defined by database
+ * ################################## */
+String build_data()
+{
+  //final string
+  String ret_data;
+
+  //database keys
+  String key_temp = "temperature=";
+  String key_humd = "humidity=";
+  String key_pres = "pressure=";
+  String key_mstr = "moisture=";
+  String key_batt = "battery=";
+  String key_ph   = "ph=";
+
+  //string formatting
+  String amp      = "&";
+
+  //temp variables
+  //  battery level
+  //    not implemented yet
+  //  ph
+  //    sensor not implemented yet
+  int tmp_bat = 22;
+  int tmp_ph  = 11;
+  int tmp_m   = 3;
+  
+  ret_data = key_temp + get_temp() + amp + key_humd + get_humidity() + amp + key_pres + get_pressure() + amp + key_mstr + get_moisture() + amp + key_batt + tmp_bat + amp + key_ph + tmp_ph;
+  
+  return ret_data;
+}
+
+/* ######################
+ * Return BME Temperature
+ * ###################### */
+int get_temp()
+{
+  //debug version 
+  int ret_temp = bme.readTemperature();
+  Serial.print("DEBUG: Temperature Read - ");
+  Serial.println(ret_temp);
+  return ret_temp;
+  
+  //clean version
+  //return bme.readTemperature();
+}
+
+/* ###################
+ * Return BME Pressure
+ * ################### */
+int get_pressure()
+{
+  //debug version 
+  int ret_pressure = bme.readPressure();
+  Serial.print("DEBUG: Pressure Read - ");
+  Serial.println(ret_pressure);
+  return ret_pressure;
+  
+  //clean version
+  //return bme.readPressure();
+}
+
+/* ####################
+ * Returns BME Humidity
+ * #################### */
+int get_humidity()
+{
+  //debug version 
+  int ret_humidity = bme.readHumidity();
+  Serial.print("DEBUG: Humidity Read - ");
+  Serial.println(ret_humidity);
+  return ret_humidity;
+  
+  //clean version
+  //return bme.readHumidity();
+}
+
+/* ###########################
+ * Returns Soil Moisture Level
+ * ########################### */
+int get_moisture()
+{
+  //debug version 
+  int ret_moisture = analogRead(A1);
+  Serial.print("DEBUG: Moisture Read - ");
+  Serial.println(ret_moisture);
+  return ret_moisture;
+  
+  //clean version
+  //return analogRead(A1);
 }

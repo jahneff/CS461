@@ -1,4 +1,4 @@
-#define SECRET_SSID "Visitor"
+#define SECRET_SSID "The Promised Lan"
 #define SECRET_PASS ""
 
 /* ##############
