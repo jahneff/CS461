@@ -81,10 +81,13 @@ unsigned long delayTime;
  *    if one is needed
  *    if not, will ommit in later call
  * status - WiFi's current status
+ * 
+ * connect_wifi() - Function Declaration
  * ####################################### */
 char ssid[] = SECRET_SSID;
 char pass[] = SECRET_PASS;
 int status = WL_IDLE_STATUS;
+void connect_wifi();
 
 /* ################
  * Database Connect
