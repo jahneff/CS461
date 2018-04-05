@@ -1,0 +1,61 @@
+body  {
+    background-color: rgb(32, 32, 32);
+    color: rgb(153, 255, 153);
+    font-family: Calibri;
+}
+
+.status-bar{
+    width: 100%;
+    height: 10%;
+    text-align: center;
+
+}
+
+.status-bar-section{
+    display: inline-block;
+    width: 19%;
+    font-size: 300%;
+}
+
+.status-bar-section-right{
+    font-size: 40%;
+    display: inline-block;
+    width: auto;
+}
+
+.status-bar-units{
+    display: inline-block;
+    margin: 0 auto;
+    width: 100%;
+    max-height: 49%;
+}
+
+.status-bar-section-label{
+    display: inline-block;
+    font-size: 25%;
+}
+
+.chart-container {
+    display: inline-block;
+    border: 1px solid black;
+    width: 60%;
+    margin-top: 1%;
+    margin-right: 1%;
+    margin-left: 1%;
+}
+
+.data-container {
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid black;
+    width: 30%;
+    margin-top: 1%;
+    margin-right: 1%;
+    margin-left: 1%;
+}
+
+.category-wrap{
+    display: block;
+    width: 100%;
+}
+
