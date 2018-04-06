@@ -66,64 +66,90 @@ $soilphChart->render();
 ?>
 <div class = "row">
     <div class = "col-sm-2">
-        <h1>Welcome, User</h1>
-        Left Column</div>
+        Left Column Top
+    </div>
     <div class = "col-sm-8">
         <div class = "status-bar">
             <div class="status-bar-section">
-                <i class="fas fa-thermometer-full"></i>
-                <?php
-                $current_temp = number_format($tempArray[1], 1);
-                echo html_entity_decode($current_temp . "&deg"); ?>
+                <a href="#chart-1">
+                    <span class="link-spanner"></span>
+                </a>
+                <div class="status-bar-section-left">
+                    <i class="fas fa-thermometer-full"></i>
+                    <?php
+                    $current_temp = number_format($tempArray[1], 1);
+                    echo html_entity_decode($current_temp . "&deg"); ?>
+                </div>
                 <div class="status-bar-section-right">
                     <span class="status-bar-units">F</span>
                 </div>
             </div>
             <div class="status-bar-section">
+                <a href="#chart-2">
+                    <span class="link-spanner"></span>
+                </a>
+                <div class="status-bar-section-left">
                 <i class="fas fa-cloud"></i>
                 <?php echo number_format($humidityArray[1], 1); ?>
+                </div>
                 <div class="status-bar-section-right">
                     <span class="status-bar-units">100%</span>
-                    <span class="status-bar-units">g/kg</span>
                 </div>
             </div>
             <div class="status-bar-section">
+                <a href="#chart-3">
+                    <span class="link-spanner"></span>
+                </a>
+                <div class="status-bar-section-left">
                 <i class="fas fa-weight"></i>
                 <?php echo number_format($pressureArray[1], 1); ?>
+                </div>
                 <div class="status-bar-section-right">
                     <span class="status-bar-units">Pa</span>
                 </div>
             </div>
             <div class="status-bar-section">
-                <i class="fas fa-tint"></i>
-                <?php echo number_format($soilmoistureArray[1], 1); ?>
+                <a href="#chart-4">
+                    <span class="link-spanner"></span>
+                </a>
+                <div class="status-bar-section-left">
+
+                    <i class="fas fa-tint"></i>
+                    <?php echo number_format($soilmoistureArray[1], 1); ?>
+                </div>
                 <div class="status-bar-section-right">
                     <span class="status-bar-units">Units</span>
                 </div>
             </div>
             <div class="status-bar-section">
+                <a href="#chart-5">
+                    <span class="link-spanner"></span>
+                </a>
+                <div class="status-bar-section-left">
+
                 <i class="fas fa-lightbulb"></i>
                 <?php echo number_format($soilphArray[1], 1); ?>
+                </div>
                 <div class="status-bar-section-right">
                     <span class="status-bar-units">lm</span>
                 </div>
             </div>
         </div>
     </div>
-    <div class = "col-sm-2">Right Column</div>
+    <div class = "col-sm-2">Right Column Top</div>
 </div>
 <div class = "row">
-    <div class = "col-sm-2">Left Column</div>
+    <div class = "col-sm-2">Put past data summary here + any notifications</div>
     <div class = "col-sm-8">
         <div class = "category-wrap">
             <div class="chart-container" id="chart-1">Temp chart renders here</div>
             <div class="data-container" style="height: <?php echo $height; ?>px;">
                 <?php
-                echo "Now " . $tempArray[1] . "<br>";
-                echo "Average " . $tempArray[1] . "<br>";
-                echo "Trend " . $tempArray[1] . "<br>";
-                echo "High " . $tempArray[1] . "<br>";
-                echo "Low " . $tempArray[1];
+                echo "<div class = 'data-container-datum'>Now " . $tempArray[1] . "</div>";
+                echo "<div class = 'data-container-datum'>Average " . getAverage($tempArray) . "</div>";
+                echo "<div class = 'data-container-datum'>Trend " . getTrend($tempArray) . "/hr</div>";
+                echo "<div class = 'data-container-datum'>High " . getMax($tempArray) . "</div>";
+                echo "<div class = 'data-container-datum'>Low " . getMin($tempArray) . "</div>";
                 ?>
             </div>
         </div>
@@ -131,48 +157,48 @@ $soilphChart->render();
             <div class="chart-container" id="chart-2">Temp chart renders here</div>
             <div class="data-container" style="height: <?php echo $height; ?>px;">
                 <?php
-                echo "Now " . $tempArray[1] . "<br>";
-                echo "Average " . $tempArray[1] . "<br>";
-                echo "Trend " . $tempArray[1] . "<br>";
-                echo "High " . $tempArray[1] . "<br>";
-                echo "Low " . $tempArray[1];
+                echo "<div class = 'data-container-datum'>Now " . $humidityArray[1] . "</div>";
+                echo "<div class = 'data-container-datum'>Average " . getAverage($humidityArray) . "</div>";
+                echo "<div class = 'data-container-datum'>Trend " . getTrend($humidityArray) . "/hr</div>";
+                echo "<div class = 'data-container-datum'>High " . getMax($humidityArray) . "</div>";
+                echo "<div class = 'data-container-datum'>Low " . getMin($humidityArray) . "</div>";
                 ?>            </div>
         </div>
         <div class = "category-wrap">
             <div class="chart-container" id="chart-3">Temp chart renders here</div>
             <div class="data-container" style="height: <?php echo $height; ?>px;">
                 <?php
-                echo "Now " . $tempArray[1] . "<br>";
-                echo "Average " . $tempArray[1] . "<br>";
-                echo "Trend " . $tempArray[1] . "<br>";
-                echo "High " . $tempArray[1] . "<br>";
-                echo "Low " . $tempArray[1];
+                echo "<div class = 'data-container-datum'>Now " . $pressureArray[1] . "</div>";
+                echo "<div class = 'data-container-datum'>Average " . getAverage($pressureArray) . "</div>";
+                echo "<div class = 'data-container-datum'>Trend " . getTrend($pressureArray) . "/hr</div>";
+                echo "<div class = 'data-container-datum'>High " . getMax($pressureArray) . "</div>";
+                echo "<div class = 'data-container-datum'>Low " . getMin($pressureArray) . "</div>";
                 ?>            </div>
         </div>
         <div class = "category-wrap">
             <div class="chart-container" id="chart-4">Temp chart renders here</div>
             <div class="data-container" style="height: <?php echo $height; ?>px;">
                 <?php
-                echo "Now " . $tempArray[1] . "<br>";
-                echo "Average " . $tempArray[1] . "<br>";
-                echo "Trend " . $tempArray[1] . "<br>";
-                echo "High " . $tempArray[1] . "<br>";
-                echo "Low " . $tempArray[1];
+                echo "<div class = 'data-container-datum'>Now " . $soilmoistureArray[1] . "</div>";
+                echo "<div class = 'data-container-datum'>Average " . getAverage($soilmoistureArray) . "</div>";
+                echo "<div class = 'data-container-datum'>Trend " . getTrend($soilmoistureArray) . "/hr</div>";
+                echo "<div class = 'data-container-datum'>High " . getMax($soilmoistureArray) . "</div>";
+                echo "<div class = 'data-container-datum'>Low " . getMin($soilmoistureArray) . "</div>";
                 ?>            </div>
         </div>
         <div class = "category-wrap">
             <div class="chart-container" id="chart-5">Temp chart renders here</div>
             <div class="data-container" style="height: <?php echo $height; ?>px;">
                 <?php
-                echo "Now " . $tempArray[1] . "<br>";
-                echo "Average " . $tempArray[1] . "<br>";
-                echo "Trend " . $tempArray[1] . "<br>";
-                echo "High " . $tempArray[1] . "<br>";
-                echo "Low " . $tempArray[1];
+                echo "<div class = 'data-container-datum'>Now " . $soilphArray[1] . "</div>";
+                echo "<div class = 'data-container-datum'>Average " . getAverage($soilphArray) . "</div>";
+                echo "<div class = 'data-container-datum'>Trend " . getTrend($soilphArray) . "/hr</div>";
+                echo "<div class = 'data-container-datum'>High " . getMax($soilphArray) . "</div>";
+                echo "<div class = 'data-container-datum'>Low " . getMin($soilphArray) . "</div>";
                 ?>            </div>
         </div>
     </div>
-    <div class = "col-sm-2">Right Column</div>
+    <div class = "col-sm-2">Put weather forecast API here</div>
 </div>
 
 

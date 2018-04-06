@@ -78,7 +78,40 @@ function makeNewBarGraph($title, $subtitle, $dataArray, $renderAt, $height){
     return $tempChart;
 }
 
+function getAverage($dataArray){
+    $sum = 0;
+    $numItems = count($dataArray);
+    for ($x = 0; $x < $numItems; $x++){
+        $sum = $sum + $dataArray[$x];
+    }
+    return ($sum/$numItems);
+}
 
+function getMin($dataArray){
+    $min = 1000;
+    $numItems = count($dataArray);
+    for ($x = 1; $x <= $numItems; $x++){
+        $num = (float) $dataArray[$x];
+        $min = min($num, $min);
+    }
+    return $min;
+}
+
+function getMax($dataArray){
+    $min = -1000;
+    $numItems = count($dataArray);
+    for ($x = 1; $x <= $numItems; $x++){
+        $num = (float) $dataArray[$x];
+        $min = max($num, $min);
+    }
+    return $min;
+}
+
+function getTrend($dataArray){
+    $numItems = count($dataArray);
+    $trend = ($dataArray[$numItems]-$dataArray[1])/$numItems;
+    return $trend;
+}
 /*  2d Array print function
     <table id="timeslice-table">
         <tr>
