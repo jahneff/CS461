@@ -58,7 +58,6 @@
  *  used for altitude
  * ############################################################ */
 Adafruit_BME280 bme; //I2C
-unsigned long delayTime;
 
 /* ##########################################
  * Globals - Variables
@@ -133,15 +132,23 @@ void core_callback()
   //##################
   //WORK DEFINED BELOW
   //##################
-  //dummy work
-  //print_wifi_status();
 
+  //##################
+  //TEST SECTION
+  //String temp_data;
+  //temp_data = build_data();
+  //##################
+
+  //##################
+  //CORE SECTION
   //connect to given Wifi network
   //  moved from Setup, will make WiFi not be on when connection isn't needed 
   connect_wifi();
 
-  //old version, connect_wifi ensures WiFi connected
-  //Is WiFi Connected?
+  //###########
+  //OLD VERSION 
+  //  connect_wifi ensures WiFi connected
+  //  Is WiFi Connected?
   //check_wifi();
 
   //collect data, connect to database, send data
@@ -155,6 +162,8 @@ void core_callback()
   
   //Create whitespace to help differentiate
   Serial.println("");
+  //##################
+
 }
 
 
@@ -191,7 +200,6 @@ void setup()
         Serial.println("ERROR: BME - Could not find a valid BME280 sensor");
         while (1);
    }
-   delayTime = 2000;
 }
 
 
@@ -216,13 +224,23 @@ void loop()
  * ############################################ */
 void connect_wifi() 
 {
-  while(status != WL_CONNECTED) {
-    Serial.print("DEBUG: Attempting to connect to SSID: ");
-    Serial.println(ssid);
-    status = WiFi.begin(ssid, pass);
-    delay(10000);
+  if(WiFi.status() != WL_CONNECTED){
+    Serial.println("DEBUG: In WiFi Connect");
+    Serial.print("DEBUG: Wifi.Status: ");
+    Serial.println(WiFi.status());
+    
+    while(WiFi.status() != WL_CONNECTED) {
+      Serial.print("DEBUG: Attempting to connect to SSID: ");
+      Serial.println(ssid);
+      status = WiFi.begin(ssid, pass);     
+      delay(10000);
+    }
+    Serial.println("DEBUG: Connected to Network");
+    Serial.print("DEBUG: Wifi.Status: ");
+    Serial.println(WiFi.status());
+  } else {
+    Serial.println("ERROR: Connecting to WiFi, already connected");
   }
-  Serial.println("DEBUG: Connected to Network");
 }
 
 /* ####################################
@@ -231,8 +249,13 @@ void connect_wifi()
  * #################################### */
 void close_wifi()
 {
+  Serial.println("DEBUG: In WiFi Close");
+    
   WiFi.end();
+  
   Serial.println("DEBUG: Connection to Network Closed Gracefully");
+  Serial.print("DEBUG: Wifi.Status: ");
+  Serial.println(WiFi.status());
 }
 
 
@@ -326,8 +349,7 @@ void check_response()
 
   // if server disconnected, close connection
   if (client.connected()) {
-    Serial.println();
-    Serial.println("DEBUG: Disconnecting From Server Gracefully");
+    Serial.println("DEBUG: Disconnecting from Server Gracefully");
     client.stop();
   }
 }
@@ -357,14 +379,12 @@ String build_data()
   //temp variables
   //  battery level
   //    not implemented yet
-  //  ph
-  //    sensor not implemented yet
   int tmp_bat = 22;
   int tmp_ph  = 11;
   int tmp_m   = 3;
   
   ret_data = key_temp + get_temp() + amp + key_humd + get_humidity() + amp + key_pres + get_pressure() + amp + key_mstr + get_moisture() + amp + key_batt + tmp_bat + amp + key_ph + tmp_ph;
-  
+  Serial.println("DEBUG: Returning Data");
   return ret_data;
 }
 
