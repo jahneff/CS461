@@ -48,30 +48,67 @@ function get_num_rows($conn, $tablename){
     }
 };
 
-function makeNewBarGraph($title, $subtitle, $dataArray, $renderAt, $height){
+function makeNewBarGraph($title, $subtitle, $dataArray, $renderAt, $height, $currentDay){
+    switch ($title) {
+        case 'Temperature':
+            $yaxis = utf8_encode('F');
+            break;
+        case 'Humidity':
+            $yaxis = utf8_encode('%');
+            break;
+        case 'Pressure':
+            $yaxis = utf8_encode('Pa');
+            break;
+        case 'Soil Moisture':
+            $yaxis = utf8_encode('%');
+            break;
+        case 'Soil pH':
+            $yaxis = utf8_encode('pH');
+            break;
+        default:
+            $yaxis = 'default';
+            break;
+    }
+    $xaxis = "Time (" . $currentDay . ")";
     $arrData = array(
         "chart" => array(
             "caption"=> $title,
             "subCaption"=> $subtitle,
-            "enableSmartLabels"=> "0",
+            "enableSmartLabels"=> "1",
             "showValues"=> "0",
             "showPercentValues"=> "1",
             "showLegend"=> "1",
             "decimals"=> "1",
             "theme"=> "zune",
             "chartBottomMargin"=> "20",
-            "labelstep" => "3"
+            "labelstep" => "3",
+            "xaxisname" => $xaxis,
+            "yaxisname" => $yaxis,
+            "bgColor" => "97dd97, 202020"
         )
     );
     $arrData['data'] = array();
     // Iterate through the data in `$actualData` and insert in to the `$arrData` array.
+    $x = 0;
     foreach ($dataArray as $key => $value) {
-        array_push($arrData['data'],
-            array(
-                'label' => $key,
-                'value' => $value
-            )
-        );
+        $x++;
+        if ($x == 10){
+            array_push($arrData['data'],
+                array(
+                    'label' => $key,
+                    'value' => $value,
+                    'anchorRadius' => "5"
+                )
+            );
+        }
+        else {
+            array_push($arrData['data'],
+                array(
+                    'label' => $key,
+                    'value' => $value
+                )
+            );
+        }
     }
     $jsonEncodedData = json_encode($arrData);
     $tempChart = new FusionCharts("line", $title , "100%", $height, $renderAt, "json", $jsonEncodedData);
