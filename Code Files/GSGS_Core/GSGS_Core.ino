@@ -152,9 +152,9 @@ void core_callback()
   //check_wifi();
 
   //collect data, connect to database, send data
-  postData();
+  post_data();
 
-  //check for database response, end connection
+  //get scheduler time interval, end connection
   check_response();
 
   //close WiFi connection
@@ -303,7 +303,7 @@ void print_wifi_status()
  *  makes call to data build_data()
  *  connects to database and sends HTTP request
  * ############################################ */
- void postData() 
+ void post_data() 
  {
     //core string parts
     String send_start    = "GET ";
@@ -311,6 +311,8 @@ void print_wifi_status()
     String send_data;
     String send_end      = " HTTP/1.1";
     String send_full;
+
+    Serial.println("DEBUG: Posting Data");
 
     send_data = build_data();
 
@@ -333,25 +335,92 @@ void print_wifi_status()
 }
 
 
-/* #####################################
- * Checks if database call gets response
- *  prints response
- *  closes connection when it's ended
- * ##################################### */
+/* ############################################
+ * Updates scheduler time
+ *  makes a request get scheduler time
+ *  waits while it gets everything
+ *    closes the connection
+ *  checks to make sure that the reply is valid
+ *  changes the scheduler time
+ * ############################################ */
 void check_response() 
 {
-  //if there is a response, print to Serial
-  Serial.println("DEBUG: Server Response:");
-  while (client.available()) {
-    char c = client.read();
-    Serial.write(c);
-  }
+  char reply_interval[10];
+  int reply_size = 0;
+  int new_interval = 0;
+  bool server_responding = false;
+  //has server sent back '#'? This marks int start
+  bool hit_marker = false;
 
-  // if server disconnected, close connection
-  if (client.connected()) {
-    Serial.println("DEBUG: Disconnecting from Server Gracefully");
+  Serial.println("DEBUG: Checking Interval");
+  
+  // If there's a successful connection, request scheduler time
+  if (client.connect(server, 80)) 
+  {
+    Serial.println("DEBUG: Connected to Server");
+    client.println("GET /interval.php HTTP/1.1");
+    client.println("Host: 35.227.147.235");
+    client.println("Connection: close");
+    client.println();
+    Serial.println("DEBUG: Finished Connection");
+    server_responding = true;
+  } 
+  else 
+  {
+    //Connection failed
+    Serial.println("ERROR: Connection Failed");
     client.stop();
   }
+
+  //if a connection was made, hold for the response
+  while (server_responding)
+  {    
+    while (client.available()) 
+    {
+      char c = client.read();
+      //Serial.write(c);
+
+      if (hit_marker)
+      {
+        if(reply_size > 9)
+        {
+          //Don't buffer overflow
+        } else 
+        {
+          reply_interval[reply_size] = c;
+          ++reply_size;
+        }
+      }
+
+      if (c == '#')
+      {
+        hit_marker = true;
+      }
+    }
+
+    // if server disconnected, close connection
+    if (!client.connected())
+    {
+      Serial.println("DEBUG: Disconnecting from Server Gracefully");
+      client.stop();
+      server_responding = false;
+    }
+  }
+
+  //updating scheduler time
+  new_interval = atoi(reply_interval);
+  if (new_interval == 0)
+  {
+    //converted reply = 0
+    //  could be caused by atoi error
+    //  could have been requested, not possible for scheduler
+    Serial.println("ERROR: Scheduler Time Returned = 0");
+  } else
+  {
+    Serial.println("DEBUG: Scheduler Time Valid, Updating");
+    //core_task.setInterval(new_interval);
+  }
+  
 }
 
 /* ##################################
@@ -370,6 +439,7 @@ String build_data()
   String key_humd = "humidity=";
   String key_pres = "pressure=";
   String key_mstr = "moisture=";
+  String key_lite = "light=";
   String key_batt = "battery=";
   String key_ph   = "ph=";
 
@@ -380,10 +450,8 @@ String build_data()
   //  battery level
   //    not implemented yet
   int tmp_bat = 22;
-  int tmp_ph  = 11;
-  int tmp_m   = 3;
   
-  ret_data = key_temp + get_temp() + amp + key_humd + get_humidity() + amp + key_pres + get_pressure() + amp + key_mstr + get_moisture() + amp + key_batt + tmp_bat + amp + key_ph + tmp_ph;
+  ret_data = key_temp + get_temp() + amp + key_humd + get_humidity() + amp + key_pres + get_pressure() + amp + key_mstr + get_moisture() + amp + key_lite + get_light() + amp + key_batt + tmp_bat;
   Serial.println("DEBUG: Returning Data");
   return ret_data;
 }
@@ -446,4 +514,19 @@ int get_moisture()
   
   //clean version
   //return analogRead(A1);
+}
+
+/* ###########################
+ * Returns Light Level
+ * ########################### */
+int get_light()
+{
+  //debug version
+  int ret_light = analogRead(A2);
+  Serial.print("DEBUG: Light Read - ");
+  Serial.println(ret_light);
+  return ret_light;
+  
+  //clean version
+  //return analogRead(A2);
 }
