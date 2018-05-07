@@ -1,5 +1,5 @@
 #define SECRET_SSID "The Promised Lan"
-#define SECRET_PASS "Y0uJustL0st"
+#define SECRET_PASS ""
 
 /* ##############
  * ssid List:
