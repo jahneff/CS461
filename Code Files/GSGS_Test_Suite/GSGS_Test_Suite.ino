@@ -255,7 +255,9 @@ String build_data()
  * ######################### */
 int get_temp()
 {
-  int ret_temp = 1;
+  int ret_temp = 30;
+  Serial.print("Hardset Temp - ");
+  Serial.println(ret_temp);
   return ret_temp;
 }
 
@@ -264,7 +266,9 @@ int get_temp()
  * ###################### */
 int get_pressure()
 {
-  int ret_pressure = 2;
+  int ret_pressure = 50;
+  Serial.print("Hardset Pressure - ");
+  Serial.println(ret_pressure);
   return ret_pressure;
 }
 
@@ -273,7 +277,9 @@ int get_pressure()
  * ####################### */
 int get_humidity()
 {
-  int ret_humidity = 3;
+  int ret_humidity = 40;
+  Serial.print("Hardset Humidity - ");
+  Serial.println(ret_humidity);
   return ret_humidity;
 }
 
@@ -282,7 +288,9 @@ int get_humidity()
  * ############################ */
 int get_moisture()
 {
-  int ret_moisture = 4;
+  int ret_moisture = 60;
+  Serial.print("Hardset Moisture - ");
+  Serial.println(ret_moisture);
   return ret_moisture;
 }
 
@@ -291,6 +299,8 @@ int get_moisture()
  * ########################## */
 int get_light()
 {
-  int ret_light = 5;
+  int ret_light = 70;
+  Serial.print("Hardset Light - ");
+  Serial.println(ret_light);
   return ret_light;
 }

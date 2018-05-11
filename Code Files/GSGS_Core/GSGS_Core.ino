@@ -97,6 +97,9 @@ WiFiClient client;
 /* ###############################################
  * Scheduler Setup
  * 
+ * Hardset Time Declaration
+ *  Setting some defined times that can be swapped
+ *    in.
  * Callback Method Prototyping
  *  Used for creating Tasks, will later be defined
  * Task Creation
@@ -107,10 +110,18 @@ WiFiClient client;
  * Callback Defining
  *  The work that the task will accomplish
  * ############################################### */
-void core_callback();
 int five_sec = 5 * SECOND;
-Task core_task(MINUTE, TASK_FOREVER, &core_callback);
+int five_min = 5 * MINUTE;
+int day = HOUR * 24;
+
+void core_callback();
+void check_in_callback();
+
+Task core_task(five_min, TASK_FOREVER, &core_callback);
+Task check_in_task(day, TASK_FOREVER, &check_in_callback);
+
 Scheduler runner;
+
 void core_callback()
 {
   //DEBUG INFO
@@ -124,32 +135,15 @@ void core_callback()
     Serial.println("DEBUG: First Run");
   }
 
+  //should never be true
   if (core_task.isLastIteration()) 
   {
     Serial.println("ERROR: core_task last run");
   }
 
-  //##################
-  //WORK DEFINED BELOW
-  //##################
-
-  //##################
-  //TEST SECTION
-  //String temp_data;
-  //temp_data = build_data();
-  //##################
-
-  //##################
   //CORE SECTION
   //connect to given Wifi network
-  //  moved from Setup, will make WiFi not be on when connection isn't needed 
   connect_wifi();
-
-  //###########
-  //OLD VERSION 
-  //  connect_wifi ensures WiFi connected
-  //  Is WiFi Connected?
-  //check_wifi();
 
   //collect data, connect to database, send data
   post_data();
@@ -162,11 +156,46 @@ void core_callback()
   
   //Create whitespace to help differentiate
   Serial.println("");
-  //##################
+}
 
+void check_in_callback()
+{
+  //DEBUG INFO
+  Serial.println("DEBUG: In check_in_task");
+  Serial.print("DEBUG: Time to run in Millisecond - ");
+  Serial.println(millis());
+
+  //Iteration Checks
+  if (check_in_task.isFirstIteration()) 
+  {
+    Serial.println("DEBUG: First Run");
+  }
+
+  //should never be true
+  if (check_in_task.isLastIteration()) 
+  {
+    Serial.println("ERROR: check_in_task last run");
+  }
+
+  //CORE SECTION
+  //connect to given Wifi network
+  connect_wifi();
+
+  //get scheduler time interval, end connection
+  check_response();
+
+  //close WiFi connection
+  close_wifi();
+  
+  //Create whitespace to help differentiate
+  Serial.println("");
 }
 
 
+/* ########################
+ * Prep Code Section
+ *  This runs once on start
+ * ######################## */
 void setup() 
 {
   /* ################################
@@ -175,7 +204,7 @@ void setup()
    *  hold until the connection is up
    * ################################ */
   Serial.begin(9600);
-  while(!Serial) ;
+  //while(!Serial) ;
   Serial.println("DEBUG: Serial Up");  
   
   /* ###############
@@ -187,9 +216,16 @@ void setup()
    * ############### */
   runner.init();
   runner.addTask(core_task);
+  runner.addTask(check_in_task);
   delay(5000);
+  
   core_task.enable();
   Serial.println("DEBUG: Core Task Up");
+  Serial.println("");
+
+  check_in_task.enable();
+  Serial.println("DEBUG: Check In Task Up");
+  Serial.println("");
 
   /* #########
    * BME Setup
@@ -202,7 +238,6 @@ void setup()
    }
 }
 
-
 /* ##############
  * Loop = Main()
  * ############## */
@@ -210,7 +245,6 @@ void loop()
 {
   runner.execute();
 }
-
 
 /* ############################################
  * WiFi Connection
@@ -275,28 +309,6 @@ void check_wifi()
   }
 }
 
-
-/* ######################################################
- * Prints information about current (possible) connection
- *  current network connected to
- *  current ip address of device
- *  signal strength
- * ###################################################### */
-void print_wifi_status()
-{
-  Serial.print("DEBUG: SSID - ");
-  Serial.println(WiFi.SSID());
-
-  IPAddress ip = WiFi.localIP();
-  Serial.print("DEBUG: IP Address - ");
-  Serial.println(ip);
-
-  long rssi = WiFi.RSSI();
-  Serial.print("DEBUG: Signal Strength (RSSI) - ");
-  Serial.print(rssi);
-  Serial.println(" dBm");
-}
-
 /* ############################################
  * Sends information to Database
  *  makes initial variables
@@ -336,18 +348,16 @@ void print_wifi_status()
 
 
 /* ############################################
- * Updates scheduler time
+ * Get scheduler time
  *  makes a request get scheduler time
  *  waits while it gets everything
  *    closes the connection
- *  checks to make sure that the reply is valid
- *  changes the scheduler time
+ *  requests update
  * ############################################ */
 void check_response() 
 {
   char reply_interval[10];
   int reply_size = 0;
-  int new_interval = 0;
   bool server_responding = false;
   //has server sent back '#'? This marks int start
   bool hit_marker = false;
@@ -375,16 +385,18 @@ void check_response()
   //if a connection was made, hold for the response
   while (server_responding)
   {    
+    //if client is up and still communicating 
     while (client.available()) 
     {
       char c = client.read();
-      //Serial.write(c);
 
+      //if special marker '#' is found
       if (hit_marker)
       {
+        //Buffer overflow check
         if(reply_size > 9)
         {
-          //Don't buffer overflow
+          //Don't allow buffer overflow
         } else 
         {
           reply_interval[reply_size] = c;
@@ -392,6 +404,7 @@ void check_response()
         }
       }
 
+      //marker found, next info is interval
       if (c == '#')
       {
         hit_marker = true;
@@ -407,6 +420,19 @@ void check_response()
     }
   }
 
+  //validate and update new interval
+  update_interval(reply_interval);
+}
+
+/* ############################################
+ * Updates scheduler time
+ *  checks to make sure that the reply is valid
+ *  changes the scheduler time
+ * ############################################ */
+void update_interval(char *reply_interval) 
+{
+  int new_interval;
+  
   //updating scheduler time
   new_interval = atoi(reply_interval);
   if (new_interval == 0)
@@ -417,10 +443,12 @@ void check_response()
     Serial.println("ERROR: Scheduler Time Returned = 0");
   } else
   {
-    Serial.println("DEBUG: Scheduler Time Valid, Updating");
-    //core_task.setInterval(new_interval);
+    Serial.print("DEBUG: Valid Scheduler Interval | Time = ");
+    Serial.print(new_interval);
+    Serial.println(", Updating");
+
+    core_task.setInterval(new_interval);
   }
-  
 }
 
 /* ##################################
@@ -464,7 +492,8 @@ int get_temp()
   //debug version 
   int ret_temp = bme.readTemperature();
   Serial.print("DEBUG: Temperature Read - ");
-  Serial.println(ret_temp);
+  Serial.print(ret_temp);
+  Serial.println(" Celsius");
   return ret_temp;
   
   //clean version
@@ -479,7 +508,8 @@ int get_pressure()
   //debug version 
   int ret_pressure = bme.readPressure();
   Serial.print("DEBUG: Pressure Read - ");
-  Serial.println(ret_pressure);
+  Serial.print(ret_pressure);
+  Serial.println("hPa (Hectopascal)");
   return ret_pressure;
   
   //clean version
@@ -494,7 +524,8 @@ int get_humidity()
   //debug version 
   int ret_humidity = bme.readHumidity();
   Serial.print("DEBUG: Humidity Read - ");
-  Serial.println(ret_humidity);
+  Serial.print(ret_humidity);
+  Serial.println("% Relative Humitity");
   return ret_humidity;
   
   //clean version
@@ -509,22 +540,24 @@ int get_moisture()
   //debug version 
   int ret_moisture = analogRead(A1);
   Serial.print("DEBUG: Moisture Read - ");
-  Serial.println(ret_moisture);
+  Serial.print(ret_moisture);
+  Serial.println(" Relative Moisture Level");
   return ret_moisture;
   
   //clean version
   //return analogRead(A1);
 }
 
-/* ###########################
+/* ###################
  * Returns Light Level
- * ########################### */
+ * ################### */
 int get_light()
 {
   //debug version
   int ret_light = analogRead(A2);
   Serial.print("DEBUG: Light Read - ");
-  Serial.println(ret_light);
+  Serial.print(ret_light);
+  Serial.println(" Lux");
   return ret_light;
   
   //clean version
