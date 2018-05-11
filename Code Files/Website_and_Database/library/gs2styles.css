@@ -16,6 +16,7 @@ body  {
     display: inline-block;
     width: 19.5%;
     text-align: center;
+    border-radius: 5px;
 }
 
 .status-bar-section:hover{
@@ -23,6 +24,14 @@ body  {
     color: red;
     opacity: .9;
 }
+
+.gs2-button{
+    display: inline-block;
+    border-color: #4cae4c;
+    width: auto;
+    padding: 0%;
+}
+
 
 .link-spanner{
     position:absolute;
@@ -44,7 +53,7 @@ body  {
 }
 
 .status-bar-section-right{
-    width: 19%;
+    width: 100%;
     display: inline-block;
 }
 
@@ -67,38 +76,52 @@ chart-and-data-wrap{
 
 .chart-container {
     display: inline-block;
-    width: 60%;
+    width: 100%;
     margin-top: 1%;
     margin-right: 1%;
     margin-left: 1%;
+}
+
+.status-bar-label-container {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    margin-top: 0%;
+    margin-right: 1%;
+    margin-left: 1%;
+    text-align: center;
+    height: 20px;
 }
 
 .data-container {
     display: inline-block;
     vertical-align: top;
-    width: 30%;
+    width: 100%;
     margin-top: 1%;
     margin-right: 1%;
     margin-left: 1%;
+    text-align: center;
 }
 
 .data-container-datum{
-    display: block;
-    height: 19%;
-    font-size: 20px;
+    display: inline-block;
+    height: auto;
+    font-size: 18px;
     border: 1px solid black;
     border-radius: 5px;
     margin-bottom: 1%;
+    width: 19%;
+    text-align: center;
 }
 
 .data-container-datum-label{
     display: inline-block;
-    width: 70%;
+    width: auto;
 }
 
 .data-container-datum-value{
     display: inline-block;
-    width: 28%;
+    width: auto;
 }
 
 .category-wrap{
@@ -114,4 +137,69 @@ chart-and-data-wrap{
 
 .weather-wrap-inner{
     display: inline-block;
+}
+
+
+.parameters_form {
+    display: inline-block;
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.parameters_form_header {
+    display: inline-block;
+    width: 100%;
+}
+
+
+
+.em1{
+    color: red;
+}
+.em2{
+    color: blue;
+}
+
+
+.form-parameter {
+    display: inline-block;
+    width: 20%;
+    margin-left: 2%;
+}
+
+.form-search{
+    display: block;
+    width: 100%;
+    margin-bottom: 2%;
+}
+
+.earlywrap {
+    display: inline-block;
+    width: 45%;
+    margin-left: 2%;
+}
+
+
+.parameter_type{
+    display: inline-block;
+    width: 30%;
+}
+
+.parameter_old{
+    display: inline-block;
+    width: 20%;
+    margin-left: 5%;
+}
+
+.parameter_label{
+    display: inline-block;
+    width: auto;
+    margin-left: 5%;
+}
+
+.parameters_line_wrap{
+    display: block;
+    width: 100%;
+    margin-bottom: 1%;
 }

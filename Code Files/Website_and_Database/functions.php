@@ -16,13 +16,13 @@ function gs2_database_connect(){
     }
 };
 
-function get_table($conn, $tablename){
+function get_table($conn, $tablename, $columns){
     $count = 0;
     $query =  "SELECT * FROM $tablename";
+    $num_rows = get_num_rows($conn, $tablename);
     if($result=mysqli_query($conn, $query)){
-
         while($favor_row = mysqli_fetch_row($result)) {   //puts table of nearby favors in favor_array
-            for ($i = 0; $i < 8; $i++){
+            for ($i = 0; $i < $columns; $i++){
                 $array[$count][$i] = $favor_row[$i];
             }
             $count = $count+1;
@@ -30,7 +30,7 @@ function get_table($conn, $tablename){
     return $array;
     }
     else {
-        return false;
+        return -1;
     }
 };
 
@@ -149,10 +149,29 @@ function getTrend($dataArray){
     $trend = ($dataArray[$numItems]-$dataArray[1])/$numItems;
     return $trend;
 }
+
+function parseTemp($string, $bookend1, $bookend2){
+    $pos = strpos($string, $bookend1);
+    $begin = $pos + strlen($bookend1);
+    $pos = strpos($string, $bookend2);
+    $end = $pos - 1;
+    $length = $end - $begin;
+    $sub = substr($string, $begin, $length);
+    return $sub;
+}
+
+function parseString($string, $bookend1){
+    $begin = strpos($string, $bookend1) + strlen($bookend1);
+    $end = strlen($string);
+    $length = $end - $begin;
+    $sub = substr($string, $begin, $length);
+    return $sub;
+}
 /*  2d Array print function
     <table id="timeslice-table">
         <tr>
             <th>ID</th>
+
             <th>Time</th>
             <th>Temperature</th>
             <th>Humidity</th>

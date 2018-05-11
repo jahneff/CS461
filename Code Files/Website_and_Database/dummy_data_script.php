@@ -1,7 +1,7 @@
 <?php
 include_once 'functions.php';
-$conn = gs2_database_connect();
 date_default_timezone_set('America/Los_Angeles');
+$conn = gs2_database_connect();
 if($conn){
     echo "Connection Successful";
 }
@@ -26,7 +26,7 @@ while ($x < 10) {
     $timestamp = date("Y-m-d H:i:s");
     $humidity = (mt_rand(1, 10000) / 100);
     sleep(1);
-    $temperature = (mt_rand(1, 10000) / 120);
+    $temperature = (mt_rand(1, 10000) / 120) - 20;
     sleep(1);
     $pressure = (mt_rand(1, 10000) / 100);
     sleep(1);

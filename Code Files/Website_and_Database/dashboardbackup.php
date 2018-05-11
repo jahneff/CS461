@@ -27,7 +27,7 @@ $height = 200;
 
 $table = array(array());
 $name = "Timeslice";
-$table = get_table($conn, $name);
+$table = get_table($conn, $name, 8);
 $tempArray = array();
 $humidityArray = array();
 $pressureArray = array();
