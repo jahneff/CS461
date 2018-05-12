@@ -19,7 +19,7 @@ $conn = gs2_database_connect();
     <nav class="navbar  navbar-dark bg-primary sticky-top" style="margin-bottom: 0px; background-color: #5cb85c;">
         <a class="navbar-brand" href="#" style="color: white;"><b>My Smart Gardening System</b></a>
         <div class="gs2-button" style="float:right; margin-right: 10px;">
-            <a class="btn btn-primary" href="parameters.php?temphi=40" role="button" style="background-color:#5cb85c; border-color: #4cae4c; margin: 5% auto; ">Set system parameters</a>
+            <a class="btn btn-primary" href="parameters.php?" role="button" style="background-color:#5cb85c; border-color: #ffffff; margin: 5% auto; font-size: 125%;"><b>Set system parameters</b></a>
         </div>
     </nav>
 </head>
@@ -29,7 +29,7 @@ $conn = gs2_database_connect();
 <?php
 
 /*
-$weather=file_get_contents("http://dataservice.accuweather.com/locations/v1/cities/search?q=97333&apikey=42chrUuGeePyvQGvwJGZ2bKGoCGTvGx5");
+$weather=file_get_contents("http://dataservice.accuweather.com/locations/v1/cities/search?q=97333&apikey=42chrUuGeePyvQGvwJGZ2bKGoCGTvGx5&metric=true");
 
 $pos = strpos($weather, "\"Key\":\"");
 echo "Position 1" . $pos;
@@ -40,11 +40,11 @@ $end = $pos - 2;
 $length = $end - $begin;
 $substr = substr($weather, $begin, $length);
 
-$current=file_get_contents("http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/" . $substr. "?apikey=42chrUuGeePyvQGvwJGZ2bKGoCGTvGx5");
+$current=file_get_contents("http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/" . $substr. "?apikey=42chrUuGeePyvQGvwJGZ2bKGoCGTvGx5&metric=true");
 
 */
-$current = '[{"DateTime":"2018-05-09T20:00:00-07:00","EpochDateTime":1525921200,"WeatherIcon":4,"IconPhrase":"Intermittent clouds","IsDaylight":true,"Temperature":{"Value":58.0,"Unit":"F","UnitType":18},"PrecipitationProbability":32,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&hbhhour=20&lang=en-us"},{"DateTime":"2018-05-09T21:00:00-07:00","EpochDateTime":1525924800,"WeatherIcon":36,"IconPhrase":"Intermittent clouds","IsDaylight":false,"Temperature":{"Value":55.0,"Unit":"F","UnitType":18},"PrecipitationProbability":32,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&hbhhour=21&lang=en-us"},{"DateTime":"2018-05-09T22:00:00-07:00","EpochDateTime":1525928400,"WeatherIcon":36,"IconPhrase":"Intermittent clouds","IsDaylight":false,"Temperature":{"Value":53.0,"Unit":"F","UnitType":18},"PrecipitationProbability":36,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&hbhhour=22&lang=en-us"},{"DateTime":"2018-05-09T23:00:00-07:00","EpochDateTime":1525932000,"WeatherIcon":36,"IconPhrase":"Intermittent clouds","IsDaylight":false,"Temperature":{"Value":52.0,"Unit":"F","UnitType":18},"PrecipitationProbability":43,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&hbhhour=23&lang=en-us"},{"DateTime":"2018-05-10T00:00:00-07:00","EpochDateTime":1525935600,"WeatherIcon":36,"IconPhrase":"Intermittent clouds","IsDaylight":false,"Temperature":{"Value":51.0,"Unit":"F","UnitType":18},"PrecipitationProbability":47,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&hbhhour=0&lang=en-us"},{"DateTime":"2018-05-10T01:00:00-07:00","EpochDateTime":1525939200,"WeatherIcon":40,"IconPhrase":"Mostly cloudy w/ showers","IsDaylight":false,"Temperature":{"Value":51.0,"Unit":"F","UnitType":18},"PrecipitationProbability":51,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&hbhhour=1&lang=en-us"},{"DateTime":"2018-05-10T02:00:00-07:00","EpochDateTime":1525942800,"WeatherIcon":7,"IconPhrase":"Cloudy","IsDaylight":false,"Temperature":{"Value":49.0,"Unit":"F","UnitType":18},"PrecipitationProbability":43,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&hbhhour=2&lang=en-us"},{"DateTime":"2018-05-10T03:00:00-07:00","EpochDateTime":1525946400,"WeatherIcon":12,"IconPhrase":"Showers","IsDaylight":false,"Temperature":{"Value":48.0,"Unit":"F","UnitType":18},"PrecipitationProbability":51,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&hbhhour=3&lang=en-us"},{"DateTime":"2018-05-10T04:00:00-07:00","EpochDateTime":1525950000,"WeatherIcon":7,"IconPhrase":"Cloudy","IsDaylight":false,"Temperature":{"Value":47.0,"Unit":"F","UnitType":18},"PrecipitationProbability":47,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&hbhhour=4&lang=en-us"},{"DateTime":"2018-05-10T05:00:00-07:00","EpochDateTime":1525953600,"WeatherIcon":7,"IconPhrase":"Cloudy","IsDaylight":false,"Temperature":{"Value":47.0,"Unit":"F","UnitType":18},"PrecipitationProbability":28,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&hbhhour=5&lang=en-us"},{"DateTime":"2018-05-10T06:00:00-07:00","EpochDateTime":1525957200,"WeatherIcon":7,"IconPhrase":"Cloudy","IsDaylight":true,"Temperature":{"Value":46.0,"Unit":"F","UnitType":18},"PrecipitationProbability":28,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&hbhhour=6&lang=en-us"},{"DateTime":"2018-05-10T07:00:00-07:00","EpochDateTime":1525960800,"WeatherIcon":7,"IconPhrase":"Cloudy","IsDaylight":true,"Temperature":{"Value":48.0,"Unit":"F","UnitType":18},"PrecipitationProbability":33,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&hbhhour=7&lang=en-us"}]';
-
+$current = '[{"DateTime":"2018-05-11T16:00:00-07:00","EpochDateTime":1526079600,"WeatherIcon":2,"IconPhrase":"Mostly sunny","IsDaylight":true,"Temperature":{"Value":17.9,"Unit":"C","UnitType":17},"PrecipitationProbability":0,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&unit=c&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&hbhhour=16&unit=c&lang=en-us"},{"DateTime":"2018-05-11T17:00:00-07:00","EpochDateTime":1526083200,"WeatherIcon":2,"IconPhrase":"Mostly sunny","IsDaylight":true,"Temperature":{"Value":18.5,"Unit":"C","UnitType":17},"PrecipitationProbability":0,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&unit=c&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&hbhhour=17&unit=c&lang=en-us"},{"DateTime":"2018-05-11T18:00:00-07:00","EpochDateTime":1526086800,"WeatherIcon":2,"IconPhrase":"Mostly sunny","IsDaylight":true,"Temperature":{"Value":17.9,"Unit":"C","UnitType":17},"PrecipitationProbability":0,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&unit=c&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&hbhhour=18&unit=c&lang=en-us"},{"DateTime":"2018-05-11T19:00:00-07:00","EpochDateTime":1526090400,"WeatherIcon":2,"IconPhrase":"Mostly sunny","IsDaylight":true,"Temperature":{"Value":16.7,"Unit":"C","UnitType":17},"PrecipitationProbability":0,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&unit=c&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&hbhhour=19&unit=c&lang=en-us"},{"DateTime":"2018-05-11T20:00:00-07:00","EpochDateTime":1526094000,"WeatherIcon":2,"IconPhrase":"Mostly sunny","IsDaylight":true,"Temperature":{"Value":15.5,"Unit":"C","UnitType":17},"PrecipitationProbability":0,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&unit=c&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&hbhhour=20&unit=c&lang=en-us"},{"DateTime":"2018-05-11T21:00:00-07:00","EpochDateTime":1526097600,"WeatherIcon":34,"IconPhrase":"Mostly clear","IsDaylight":false,"Temperature":{"Value":13.6,"Unit":"C","UnitType":17},"PrecipitationProbability":0,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&unit=c&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&hbhhour=21&unit=c&lang=en-us"},{"DateTime":"2018-05-11T22:00:00-07:00","EpochDateTime":1526101200,"WeatherIcon":34,"IconPhrase":"Mostly clear","IsDaylight":false,"Temperature":{"Value":12.2,"Unit":"C","UnitType":17},"PrecipitationProbability":0,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&unit=c&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&hbhhour=22&unit=c&lang=en-us"},{"DateTime":"2018-05-11T23:00:00-07:00","EpochDateTime":1526104800,"WeatherIcon":34,"IconPhrase":"Mostly clear","IsDaylight":false,"Temperature":{"Value":11.1,"Unit":"C","UnitType":17},"PrecipitationProbability":0,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&unit=c&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=1&hbhhour=23&unit=c&lang=en-us"},{"DateTime":"2018-05-12T00:00:00-07:00","EpochDateTime":1526108400,"WeatherIcon":34,"IconPhrase":"Mostly clear","IsDaylight":false,"Temperature":{"Value":10.5,"Unit":"C","UnitType":17},"PrecipitationProbability":0,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&unit=c&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&hbhhour=0&unit=c&lang=en-us"},{"DateTime":"2018-05-12T01:00:00-07:00","EpochDateTime":1526112000,"WeatherIcon":34,"IconPhrase":"Mostly clear","IsDaylight":false,"Temperature":{"Value":9.9,"Unit":"C","UnitType":17},"PrecipitationProbability":0,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&unit=c&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&hbhhour=1&unit=c&lang=en-us"},{"DateTime":"2018-05-12T02:00:00-07:00","EpochDateTime":1526115600,"WeatherIcon":34,"IconPhrase":"Mostly clear","IsDaylight":false,"Temperature":{"Value":9.2,"Unit":"C","UnitType":17},"PrecipitationProbability":0,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&unit=c&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&hbhhour=2&unit=c&lang=en-us"},{"DateTime":"2018-05-12T03:00:00-07:00","EpochDateTime":1526119200,"WeatherIcon":34,"IconPhrase":"Mostly clear","IsDaylight":false,"Temperature":{"Value":8.8,"Unit":"C","UnitType":17},"PrecipitationProbability":0,"MobileLink":"http://m.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&unit=c&lang=en-us","Link":"http://www.accuweather.com/en/us/corvallis-or/97330/hourly-weather-forecast/40973_pc?day=2&hbhhour=3&unit=c&lang=en-us"}]';
+//echo $current;
 $temp = $current;
 $begin = strpos($temp, "hbhhour=");
 $end = strpos($temp, "&lang=en-us\"},{\"DateTime\"");
@@ -52,12 +52,16 @@ $end = strpos($temp, "&lang=en-us\"},{\"DateTime\"");
 $hour = substr($temp, ($begin + 8), ($end - $begin));
 
 
-$forecastarray = array();
+$forecasttemparray = array();
+$forecastcondarray = array();
 
 
 for ($i = 0; $i < 12; $i++) {
-    $forecastarray[$i] = parseTemp($current, "{\"Value\":", "\"Unit\":\"F\"");
-    $current = parseString($current, "\"Unit\":\"F\"");
+    $forecastcondarray[$i] = parseTemp($current, "\"IconPhrase\":\"", ",\"IsDaylight\"");
+    $current = parseString($current, ",\"IsDaylight\"");
+
+    $forecasttemparray[$i] = parseTemp($current, "{\"Value\":", "\"Unit\":\"C\"");
+    $current = parseString($current, "\"Unit\":\"C\"");
 }
 
 
@@ -67,6 +71,7 @@ $table1 = array(array());
 $name = "Parameters";
 $table1 = get_table($conn, $name, 12);
 
+
 $hitempbound = $table1[0][1];
 $lotempbound = $table1[0][2];
 $hihumidbound = $table1[0][3];
@@ -75,8 +80,15 @@ $hipresbound = $table1[0][5];
 $lopresbound = $table1[0][6];
 $himoistbound = $table1[0][7];
 $lomoistbound = $table1[0][8];
+$interval = $table1[0][11];
 
 
+if(isset($_GET['readings']) && $_GET['readings']!=""){
+    $num_readings = 20;
+}
+else {
+    $num_readings = 10;
+}
 
 $height = 400;
 
@@ -92,73 +104,75 @@ $batteryArray = array();
 $timeArray = array();
 $timeArray2 = array();
 $num_rows = get_num_rows($conn, $name);
-for ($i = 1; $i <= 10; $i++){
-    $timeArray[$i] = date('H:i:s', strtotime($table[$num_rows - (11 - $i)]['1']));
-    $tempArray[$i] = $table[$num_rows - (11 - $i)]['2'];
-    $humidityArray[$i] = $table[$num_rows - (11 - $i)]['3'];
-    $pressureArray[$i] = $table[$num_rows - (11 - $i)]['4'];
-    $soilmoistureArray[$i] = $table[$num_rows - (11 - $i)]['5'];
-    $soilphArray[$i] = $table[$num_rows - (11 - $i)]['6'];
-    $batteryArray[$i] = $table[$num_rows - (11 - $i)]['7'];
+for ($i = 1; $i <= $num_readings; $i++){
+    $timeArray[$i] = date('H:i:s', strtotime($table[$num_rows - ($num_readings - $i + 1)]['1']));
+    $tempArray[$i] = $table[$num_rows - ($num_readings - $i + 1)]['2'];
+    $humidityArray[$i] = $table[$num_rows - ($num_readings - $i + 1)]['3'];
+    $pressureArray[$i] = $table[$num_rows - ($num_readings - $i + 1)]['4'];
+    $soilmoistureArray[$i] = $table[$num_rows - ($num_readings - $i + 1)]['5'];
+    $soilphArray[$i] = $table[$num_rows - ($num_readings - $i + 1)]['6'];
+    $batteryArray[$i] = $table[$num_rows - ($num_readings - $i + 1)]['7'];
 }
-$currentDay = date('m-d', strtotime($table[$num_rows-1][1]));
+
+$currentDay = date('M d Y', strtotime($table[$num_rows-1][1]));
 $temp_time_Array = array_combine($timeArray, $tempArray);
 $humidity_time_Array = array_combine($timeArray, $humidityArray);
 $pressure_time_Array = array_combine($timeArray, $pressureArray);
 $soilmoisture_time_Array = array_combine($timeArray, $soilmoistureArray);
 $soilph_time_Array = array_combine($timeArray, $soilphArray);
-$tempChart = makeNewBarGraph("Temperature", "Last 12 hours", $temp_time_Array, "chart-1", $height, $currentDay);
+$subtitle = "Last " . $num_readings . " readings";
+$tempChart = makeNewBarGraph("Temperature", $subtitle, $temp_time_Array, "chart-1", $height, $currentDay, $num_readings);
 $tempChart->render();
-$humidityChart = makeNewBarGraph("Humidity", "Last 12 hours", $humidity_time_Array, "chart-2", $height, $currentDay);
+$humidityChart = makeNewBarGraph("Humidity", $subtitle, $humidity_time_Array, "chart-2", $height, $currentDay, $num_readings);
 $humidityChart->render();
-$pressureChart = makeNewBarGraph("Pressure", "Last 12 hours", $pressure_time_Array, "chart-3", $height, $currentDay);
+$pressureChart = makeNewBarGraph("Pressure", $subtitle, $pressure_time_Array, "chart-3", $height, $currentDay, $num_readings);
 $pressureChart->render();
-$soilmoistureChart = makeNewBarGraph("Soil Moisture", "Last 12 hours", $soilmoisture_time_Array, "chart-4", $height, $currentDay);
+$soilmoistureChart = makeNewBarGraph("Soil Moisture", $subtitle, $soilmoisture_time_Array, "chart-4", $height, $currentDay, $num_readings);
 $soilmoistureChart->render();
-$soilphChart = makeNewBarGraph("Light Intensity", "Last 12 hours", $soilph_time_Array, "chart-5", $height, $currentDay);
+$soilphChart = makeNewBarGraph("Light Intensity", $subtitle, $soilph_time_Array, "chart-5", $height, $currentDay, $num_readings);
 $soilphChart->render();
 
 
-$current_temperature = number_format($tempArray[10], 1);
-$current_humidity = number_format($humidityArray[1], 1);
-$current_pressure = number_format($pressureArray[1], 1);
-$current_moisture = number_format($soilmoistureArray[1], 1);
-$current_pH = number_format($soilphArray[1], 1);
+$current_temperature = number_format($tempArray[$num_readings], 1);
+$current_humidity = number_format($humidityArray[$num_readings], 1);
+$current_pressure = number_format($pressureArray[$num_readings], 1);
+$current_moisture = number_format($soilmoistureArray[$num_readings], 1);
+$current_pH = number_format($soilphArray[$num_readings], 1);
 
 
 if(isset($_GET['chart']) && $_GET['chart']!=""){
     if ($_GET['chart']==1){
         $chart = "chart-1";
         $array = $tempArray;
-        $currentgraphedval = number_format($tempArray[10], 1);
+        $currentgraphedval = number_format($tempArray[$num_readings], 1);
         $hibound = $hitempbound;
         $lobound = $lotempbound;
     }
     else if ($_GET['chart']==2){
         $chart = "chart-2";
         $array = $humidityArray;
-        $currentgraphedval = number_format($humidityArray[10], 1);
+        $currentgraphedval = number_format($humidityArray[$num_readings], 1);
         $hibound = $hihumidbound;
         $lobound = $lohumidbound;
     }
     else if ($_GET['chart']==3){
         $chart = "chart-3";
         $array = $pressureArray;
-        $currentgraphedval = number_format($pressureArray[10], 1);
+        $currentgraphedval = number_format($pressureArray[$num_readings], 1);
         $hibound = $hipresbound;
         $lobound = $lopresbound;
     }
     else if ($_GET['chart']==4){
         $chart = "chart-4";
         $array = $soilmoistureArray;
-        $currentgraphedval = number_format($soilmoistureArray[10], 1);
+        $currentgraphedval = number_format($soilmoistureArray[$num_readings], 1);
         $hibound = $himoistbound;
         $lobound = $lomoistbound;
     }
     else {
         $chart = "chart-5";
         $array = $soilphArray;
-        $currentgraphedval = number_format($soilphArray[10], 1);
+        $currentgraphedval = number_format($soilphArray[$num_readings], 1);
         $hibound = 999;
         $lobound = -999;
     }
@@ -166,7 +180,7 @@ if(isset($_GET['chart']) && $_GET['chart']!=""){
 else{
     $chart = "chart-1";
     $array = $tempArray;
-    $currentgraphedval = number_format($tempArray[10], 1);
+    $currentgraphedval = number_format($tempArray[$num_readings], 1);
     $hibound = $hitempbound;
     $lobound = $lotempbound;
 }
@@ -184,7 +198,7 @@ else{
         </div>
 
         <div class = "status-bar" style="margin-bottom: 5px;">
-            <div class="status-bar-section" title="Temperature (Click to view graph)">
+            <div class="status-bar-section" title="Temperature (Click to view graph)" style="<?php if($lotempbound > $current_temperature){echo 'color:#b5d5ff';} else if($hitempbound < $current_temperature){echo 'color:#d01d1d';}?>">
                 <a href="dashboard.php?chart=1">
                     <span class="link-spanner"></span>
                 </a>
@@ -197,7 +211,7 @@ else{
                     <span class="status-bar-units">Temperature (C)</span>
                 </div>
             </div>
-            <div class="status-bar-section">
+            <div class="status-bar-section" style="<?php if($lohumidbound > $current_humidity){echo 'color:#b5d5ff';} else if($hihumidbound < $current_humidity){echo 'color:#d01d1d';}?>">
                 <a href="dashboard.php?chart=2">
                     <span class="link-spanner"></span>
                 </a>
@@ -209,7 +223,7 @@ else{
                     <span class="status-bar-units">Humidity (%)</span>
                 </div>
             </div>
-            <div class="status-bar-section">
+            <div class="status-bar-section" style="<?php if($lopresbound > $current_pressure){echo 'color:#b5d5ff';} else if($hipresbound < $current_pressure){echo 'color:#d01d1d';}?>">
                 <a href="dashboard.php?chart=3">
                     <span class="link-spanner"></span>
                 </a>
@@ -221,7 +235,7 @@ else{
                     <span class="status-bar-units">Pressure (hPa)</span>
                 </div>
             </div>
-            <div class="status-bar-section">
+            <div class="status-bar-section" style="<?php if($lomoistbound > $current_moisture){echo 'color:#b5d5ff';} else if($himoistbound < $current_moisture){echo 'color:#d01d1d';}?>">
                 <a href="dashboard.php?chart=4">
                     <span class="link-spanner"></span>
                 </a>
@@ -257,26 +271,59 @@ else{
 <div class = "row">
     <div class = "col-sm-2">
         <div class="weather-wrap">
-            <div class="weather-wrap-inner">
 <?php
-                for ($i = 0; $i < 12; $i++) {
-                $ampm = "";
                 if ($hour > 12)
                 {
-                $ampm = "pm";
-                $hour = $hour % 12;
+                    $ampm = "pm";
+                    $hour = $hour % 12;
                 }
                 else {
-                $ampm = "am";
+                    $ampm = "am";
                 }
-                echo "<br>";
-                echo "Temp at " . $hour . ":00" . $ampm . " => " . $forecastarray[$i];
-                echo "<br>";
-                $hour = $hour + 1;
-
+                for ($i = 0; $i < 12; $i++) {
+                    $printhour = $hour%12;
+                    if ($printhour == 0){
+                        $printhour = 12;
+                    }
+                    echo "<div class='weather-wrap-inner'>";
+                        echo "<div class='forecast-time'>";
+                            echo $printhour . ":00" . $ampm;
+                        echo "</div>";
+                        echo "<div class='forecast-time'>";
+                            echo "<div class='forecast-temp'>";
+                                echo html_entity_decode($forecasttemparray[$i] . "&deg") . "C";
+                            echo "</div>";
+                            echo "<div class='forecast-conditions'>";
+                                echo $forecastcondarray[$i];
+                            echo "</div>";
+                        echo "</div>";
+                        echo "<div class='forecast-icon'>";
+                            if (strpos($forecastcondarray[$i], 'Snow') !== false || strpos($forecastcondarray[$i], 'snow') !== false) {
+                                    echo "<i class=\"fas fa-snowflake\"></i>";
+                                }
+                                else if (strpos($forecastcondarray[$i], 'Rain') !== false || strpos($forecastcondarray[$i], 'rain') !== false) {
+                                    echo "<i class=\"fas fa-tint\"></i>";
+                                }
+                                else if (strpos($forecastcondarray[$i], 'Cloud') !== false || strpos($forecastcondarray[$i], 'cloud') !== false || strpos($forecastcondarray[$i], 'Dreary') !== false) {
+                                    echo "<i class=\"fas fa-cloud\"></i>";
+                                }
+                                else if (strpos($forecastcondarray[$i], 'Sun') !== false || strpos($forecastcondarray[$i], 'sun') !== false) {
+                                    echo "<i class=\"fas fa-sun\"></i>";
+                                }
+                                else if (strpos($forecastcondarray[$i], 'Clear') !== false || strpos($forecastcondarray[$i], 'clear') !== false) {
+                                    echo "<i class=\"fas fa-moon\"></i>";
+                                }
+                                else {
+                                    echo 'Default';
+                                }
+                                $hour = $hour + 1;
+                        echo "</div>";
+                    echo "</div>";
                 }
-?>
-            </div>
+                ?>
+            <a href="https://developer.accuweather.com/packages" >
+                <img src="library/accuweather.png" style="width:60%; height 20px;" />
+            </a>
         </div>
     </div>
 
@@ -286,31 +333,37 @@ else{
             <div class="data-container" style="height: <?php echo $height; ?>px;">
                 <div class = 'data-container-datum'>
                     <div class = 'data-container-datum-label'>Now:</div>
-                    <div class = 'data-container-datum-value'style="<?php if($lobound > $currentgraphedval){echo 'color:#b5d5ff';} else if($hibound < $currentgraphedval){echo 'color:#9c1616';}?>"><?php echo $currentgraphedval; ?></div>
+                    <div class = 'data-container-datum-value'style="<?php if($lobound > $currentgraphedval){echo 'color:#b5d5ff';} else if($hibound < $currentgraphedval){echo 'color:#d01d1d';}?>"><?php echo number_format($currentgraphedval, 1); ?></div>
                 </div>
                 <div class = 'data-container-datum'>
                     <div class = 'data-container-datum-label'>Avg:</div>
-                    <div class = 'data-container-datum-value' style="<?php if($lobound > getAverage($array)){echo 'color:#b5d5ff';} else if($hibound < getAverage($array)){echo 'color:#9c1616';}?>"><?php echo getAverage($array); ?></div>
+                    <div class = 'data-container-datum-value' style="<?php if($lobound > getAverage($array)){echo 'color:#b5d5ff';} else if($hibound < getAverage($array)){echo 'color:#d01d1d';}?>"><?php echo number_format(getAverage($array), 1); ?></div>
                 </div>
                 <div class = 'data-container-datum'>
                     <div class = 'data-container-datum-label'>Trend:</div>
-                    <div class = 'data-container-datum-value'><?php echo getTrend($array); ?></div>
+                    <div class = 'data-container-datum-value'><?php echo number_format(getTrend($array), 1); ?></div>
                 </div>
                 <div class = 'data-container-datum'>
                     <div class = 'data-container-datum-label'>High:</div>
-                    <div class = 'data-container-datum-value' style="<?php if($lobound > getMax($array)){echo 'color:#b5d5ff';} else if($hibound < getMax($array)){echo 'color:#9c1616';}?>"><?php echo getMax($array); ?></div>
+                    <div class = 'data-container-datum-value' style="<?php if($lobound > getMax($array)){echo 'color:#b5d5ff';} else if($hibound < getMax($array)){echo 'color:#d01d1d';}?>"><?php echo number_format(getMax($array),1); ?></div>
                 </div>
                 <div class = 'data-container-datum'>
                     <div class = 'data-container-datum-label'>Low:</div>
-                    <div class = 'data-container-datum-value' style="<?php if($lobound > getMin($array)){echo 'color:#b5d5ff';} else if($hibound < getMin($array)){echo 'color:#9c1616';}?>"><?php echo getMin($array); ?></div>
+                    <div class = 'data-container-datum-value' style="<?php if($lobound > getMin($array)){echo 'color:#b5d5ff';} else if($hibound < getMin($array)){echo 'color:#d01d1d';}?>"><?php echo number_format(getMin($array), 1); ?></div>
+                </div>
+                <div class="status-bar-label-container" style="vertical-align: top;">
+                    Current read interval: <?php echo $interval ;?> min
+                    <a name="signup_btn" id="signup_btn" class="btn btn-primary" style="background-color:#5cb85c; border-color: #ffffff; margin-left: 1%; font-size: 75%;" type="button" href="parameters.php">Change</a>
+
                 </div>
             </div>
+
         </div>
 
     </div>
     <div class = "col-sm-3">
 
-        <form class="form-search" id="searchform" name="searchform" method="get" action="view_data.php" style="margin-right: 5%;">
+        <form class="form-search" id="searchform" name="searchform" method="get" action="view_data.php" style="margin-left:3%; width: 95%;">
             <h2 class="form-signup-heading" style="color:white; margin-bottom: 0;">Search Center</h2>
             <div class="form-signup-subheading" style="margin-left: 5%; margin-right: 15%; margin-bottom: 5%;">Creates a customized view of your data from time x to time y</div>
 
@@ -619,7 +672,27 @@ else{
                 <option value="59" <?PHP if($month==11) echo "selected";?>>59</option>
             </select>
             </div>
-            <button name="signup_btn" id="signup_btn" class="btn btn-primary" style ="background-color:#5cb85c; border-color: #4cae4c; margin: 5% 2%; " type="submit">Search</button>
+            <div class="checkbox-wrap">
+                <label for="tempbox" style="font-size: larger; width: 50%;">Temperature</label>
+                <input type="checkbox" name="graphtemp" id="graphtemp" value="Y" style="margin-left: 10%; vertical-align: middle;">
+            </div>
+            <div class="checkbox-wrap">
+                <label for="tempbox" style="font-size: larger; width: 50%;">Humidity</label>
+                <input type="checkbox" name="graphhumid" id="graphhumid" value="Y" style="margin-left: 10%; vertical-align: middle;">
+            </div>
+            <div class="checkbox-wrap">
+                <label for="tempbox" style="font-size: larger; width: 50%;">Pressure</label>
+                <input type="checkbox" name="graphpres" id="graphpres" value="Y" style="margin-left: 10%; vertical-align: middle;">
+            </div>
+            <div class="checkbox-wrap">
+                <label for="tempbox" style="font-size: larger; width: 50%;">Soil Moisture</label>
+                <input type="checkbox" name="graphmoist" id="graphmoist" value="Y" style="margin-left: 10%; vertical-align: middle;">
+            </div>
+            <div class="checkbox-wrap">
+                <label for="tempbox" style="font-size: larger; width: 50%;">Light</label>
+                <input type="checkbox" name="graphlight" id="graphlight" value="Y" style="margin-left: 10%; vertical-align: middle;">
+            </div>
+            <button name="signup_btn" id="signup_btn" class="btn btn-primary" style="background-color:#5cb85c; border-color: #ffffff; margin: 5% auto; font-size: 125%;" type="submit">Search</button>
         </form>
 
     </div>

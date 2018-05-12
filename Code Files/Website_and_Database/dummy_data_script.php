@@ -21,8 +21,8 @@ else {
     echo "Failure, could not allocate ID";
 }
 $x = 0;
-while ($x < 10) {
-    sleep(1);
+while ($x < 250) {
+    sleep(20);
     $timestamp = date("Y-m-d H:i:s");
     $humidity = (mt_rand(1, 10000) / 100);
     sleep(1);

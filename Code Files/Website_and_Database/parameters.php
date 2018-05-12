@@ -28,9 +28,13 @@ $oldinterval = $table[0][11];
     <link rel="stylesheet" type="text/css" href="library/gs2styles.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <nav class="navbar  navbar-dark bg-primary sticky-top" style="margin-bottom: 10px; background-color: #5cb85c;">
+    <nav class="navbar  navbar-dark bg-primary sticky-top" style="margin-bottom: 0px; background-color: #5cb85c;">
         <a class="navbar-brand" href="dashboard.php" style="color: white;"><b>My Smart Gardening System</b></a>
+        <div class="gs2-button" style="float:right; margin-right: 10px;">
+            <a class="btn btn-primary" href="parameters.php" role="button" style="background-color:#5cb85c; border-color: #ffffff; margin: 5% auto; font-size: 125%;"><b>Set system parameters</b></a>
+        </div>
     </nav>
+
 </head>
 
 <body>
@@ -40,16 +44,23 @@ $oldinterval = $table[0][11];
     <form class="parameters_form" id="usersignin" name="usersignin" method="get" action="#" enctype="multipart/form-data">
         <h2 class="parameters_form_header" style="text-align: left; width: auto;">System Parameters</h2>
         <div class="gs2-button" style="margin-left: 3%;">
-            <button id="helpbutton" name="helpbutton" class="btn btn-primary" type="button" style="line-height: 14px; background-color:#5cb85c; border-color: #4cae4c; margin-top: -12%;">Show Help</button>
+            <button id="helpbutton" name="helpbutton" class="btn btn-primary" type="button" style="background-color:#5cb85c; border-color: #ffffff; font-size: 100%; vertical-align: middle; margin-top: -10px;">Show Help</button>
+            <a href"dashboard.php" id="backpbutton" name="backbutton" class="btn btn-primary" type="button" style="background-color:#5cb85c; border-color: #ffffff; font-size: 100%; vertical-align: middle; margin-top: -10px; margin-left: 20px">Back to dashboard</a>
+
         </div>
 
         <div id="helpbox" style="margin-bottom: 5%; display: none;">
             <div class="parameters_form_subheader">Welcome to the system parameters page! Here you can interact with the outdoor system directly.</div>
             <div class="parameters_form_subheader">There are two things you can do from here:</div>
-            <div class="parameters_form_subheader">1. Change the system's read interval</div>
+            <div class="parameters_form_subheader">1. Update the system's read interval</div>
             <div class="parameters_form_subheader">This changes the amount of time between readings. You can manually set it in the top box of the form below.</div>
-            <div class="parameters_form_subheader">2. Change the environment parameters</div>
-            <div class="parameters_form_subheader">This changes the environment values range of your system. By default, all values fall within the safe range, but you can redefine the bounds of the safe range below. If, for example, you want the system to indicate when the temperature is below freezing (32f), you can type "32" in the "Low Temperature Bound" box below. </div>
+            <div class="parameters_form_subheader">2. Update the environment parameters</div>
+            <div class="parameters_form_subheader">This changes the environment values range of your system. By default, all values fall within the safe range, but you can redefine the bounds of the safe range below. </div>
+            <div class="parameters_form_subheader" style="margin-left: 6%;">Normally, values on this site display in green. </div>
+            <div class="parameters_form_subheader" style="margin-left: 6%;">If value > high bound, it will display in <span style='color: #d01d1d;'>red</span></div>
+            <div class="parameters_form_subheader" style="margin-left: 6%;">If value < low bound, it will display in <span style='color: #b5d5ff;'>blue</span> </div>
+
+
         </div>
         <script>
             document.getElementById('helpbutton').onclick = function hideshowfavorbox() {
@@ -171,7 +182,7 @@ $oldinterval = $table[0][11];
         </div>
 
         <div class="gs2-button" style="width=:100%; text-align: center;">
-            <button id="submitbutton" name="submitbutton" class="btn btn-lg btn-primary" type="submit" style="line-height: 18px; background-color:#5cb85c; border-color: #4cae4c;">Save changes</button>
+            <button id="submitbutton" name="submitbutton" class="btn btn-lg btn-primary" type="submit" style="background-color:#5cb85c; border-color: #ffffff; font-size: 125%; vertical-align: middle;">Save changes</button>
         </div>
         <div id="message"></div>
     </form>
@@ -253,14 +264,14 @@ $oldinterval = $table[0][11];
         }
         else if (preshi != "") {
             if (Number(preshi) <= Number(oldpreslo)) {
-                alert("High pressure bound must be greater than low pressure bound! 2");
+                alert("High pressure bound must be greater than low pressure bound!");
                 break submit;
 
             }
         }
         else if (preslo != "") {
             if (Number(preslo) >= Number(oldpreshi)) {
-                alert("High pressure bound must be greater than low pressure bound! 3");
+                alert("High pressure bound must be greater than low pressure bound!");
                 break submit;
 
             }
