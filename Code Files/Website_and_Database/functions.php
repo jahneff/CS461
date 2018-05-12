@@ -74,7 +74,7 @@ function makeNewBarGraph($title, $subtitle, $dataArray, $renderAt, $height, $cur
         case 'Soil Moisture':
             $yaxis = utf8_encode('%');
             break;
-        case 'Soil pH':
+        case 'Light Intensity':
             $yaxis = utf8_encode('lx');
             break;
         default:
