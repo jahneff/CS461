@@ -183,7 +183,7 @@ while($time_hi_bound < strtotime($table1[$k]['1']) && $k > 0) {
 
 $name = "Timeslice";
 $table = get_raw_table($conn, $name, $k, $j);
-$chart = makeNewCustomBarGraph("Testting Graph Render", "PASSED", $table, "chart-1", 300, date("Y/m/d"), $temp, $humid, $pres, $moist, $light);
+$chart = makeNewCustomBarGraph("Combination Graph", "Custom time period", $table, "chart-1", 300, date("Y/m/d"), $temp, $humid, $pres, $moist, $light);
 $chart->render();
 ?>
 <div class="row">
