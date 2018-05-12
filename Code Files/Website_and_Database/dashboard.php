@@ -84,7 +84,7 @@ $interval = $table1[0][11];
 
 
 if(isset($_GET['readings']) && $_GET['readings']!=""){
-    $num_readings = 20;
+    $num_readings = $_GET['readings'];
 }
 else {
     $num_readings = 10;
@@ -352,8 +352,14 @@ else{
                     <div class = 'data-container-datum-value' style="<?php if($lobound > getMin($array)){echo 'color:#b5d5ff';} else if($hibound < getMin($array)){echo 'color:#d01d1d';}?>"><?php echo number_format(getMin($array), 1); ?></div>
                 </div>
                 <div class="status-bar-label-container" style="vertical-align: top;">
+                    <form id="form1" method="get" href="dashboard.php?chart=<?php echo $chart?>" style="margin-top: 5px;">
+                        Num readings: <?php echo $num_readings; ?>
+                        <input type="hidden" name="chart" value="<?php echo $_GET['chart'];?>" />
+                        <input name="readings" id="readings" type="text" class="form-control form-parameter form-parameter form-parameter form-parameter form-parameter" style="width: 50px;">
+                        <br>
+                        <button class="btn btn-primary" style="background-color:#5cb85c; border-color: #ffffff; margin-top: 5px; margin-bottom: 25px; font-size: 80%;" type="submit">Change number of readings shown</button>
+                    </form>
                     Current read interval: <?php echo $interval ;?> min
-                    <a name="signup_btn" id="signup_btn" class="btn btn-primary" style="background-color:#5cb85c; border-color: #ffffff; margin-left: 1%; font-size: 75%;" type="button" href="parameters.php">Change</a>
 
                 </div>
             </div>

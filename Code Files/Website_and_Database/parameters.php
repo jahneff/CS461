@@ -45,7 +45,7 @@ $oldinterval = $table[0][11];
         <h2 class="parameters_form_header" style="text-align: left; width: auto;">System Parameters</h2>
         <div class="gs2-button" style="margin-left: 3%;">
             <button id="helpbutton" name="helpbutton" class="btn btn-primary" type="button" style="background-color:#5cb85c; border-color: #ffffff; font-size: 100%; vertical-align: middle; margin-top: -10px;">Show Help</button>
-            <a href"dashboard.php" id="backpbutton" name="backbutton" class="btn btn-primary" type="button" style="background-color:#5cb85c; border-color: #ffffff; font-size: 100%; vertical-align: middle; margin-top: -10px; margin-left: 20px">Back to dashboard</a>
+            <a href="dashboard.php" id="backpbutton" name="backbutton" class="btn btn-primary" type="button" style="background-color:#5cb85c; border-color: #ffffff; font-size: 100%; vertical-align: middle; margin-top: -10px; margin-left: 20px">Back to dashboard</a>
 
         </div>
 

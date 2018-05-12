@@ -181,7 +181,6 @@ function makeNewCustomBarGraph($title, $subtitle, $dataArray, $renderAt, $height
     $dataseries4=array();
     $dataseries5=array();
 
-
     while($row = mysqli_fetch_array($dataArray)) {
         array_push($categoryArray, array(
                 "label" => $row[0]
@@ -220,9 +219,6 @@ function makeNewCustomBarGraph($title, $subtitle, $dataArray, $renderAt, $height
     }
     $arrData["categories"]=array(array("category"=>$categoryArray));
     $arrData["dataset"] = array(array("seriesName"=> "Temperature (C)", "renderAs"=>"line", "data"=>$dataseries1), array("seriesName"=> "Humidity (%)",  "renderAs"=>"line", "data"=>$dataseries2), array("seriesName"=> "Pressure (kPa)",  "renderAs"=>"line", "data"=>$dataseries3),array("seriesName"=> "Soil Moisture (%)",  "renderAs"=>"line", "data"=>$dataseries4),array("seriesName"=> "Light (lx)",  "renderAs"=>"line", "data"=>$dataseries5));
-    // Iterate through the data in `$actualData` and insert in to the `$arrData` array.
-
-
     $jsonEncodedData = json_encode($arrData);
     $tempChart = new FusionCharts("mscombi2d", $title , "100%", $height, $renderAt, "json", $jsonEncodedData);
     return $tempChart;

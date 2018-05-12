@@ -44,7 +44,12 @@ if ($_GET['xyear']!=""){
             $xdate = $xdate . "-1";
         }
         if ($_GET['xminute']!=""){
-            $xdate = $xdate . ":". $_GET['xminute'] . ":00";
+            if($_GET['xminute']=="0"){
+                $xdate = $xdate . ":0". $_GET['xminute'] . ":00";
+            }
+            else {
+                $xdate = $xdate . ":" . $_GET['xminute'] . ":00";
+            }
         }
         else {
             $xdate = $xdate;
@@ -65,7 +70,12 @@ if ($_GET['xyear']!=""){
             $xdate = $xdate . "-1";
         }
         if ($_GET['xminute']!=""){
-            $xdate = $xdate . ":". $_GET['xminute'] . ":00";
+            if($_GET['xminute']=="0"){
+                $xdate = $xdate . ":0". $_GET['xminute'] . ":00";
+            }
+            else {
+                $xdate = $xdate . ":" . $_GET['xminute'] . ":00";
+            }
         }
         else {
             $xdate = $xdate;
@@ -90,8 +100,12 @@ if ($_GET['yyear']!=""){
             $ydate = $ydate . "-1";
         }
         if ($_GET['yminute']!=""){
-            $ydate = $ydate . ":". $_GET['yminute'] . ":00";
-        }
+            if($_GET['yminute']=="0"){
+                $ydate = $ydate . ":0". $_GET['yminute'] . ":00";
+            }
+            else {
+                $ydate = $ydate . ":" . $_GET['yminute'] . ":00";
+            }        }
         else {
             $ydate = $ydate;
         }
@@ -111,7 +125,12 @@ if ($_GET['yyear']!=""){
             $ydate = $ydate . "-1";
         }
         if ($_GET['yminute']!=""){
-            $ydate = $ydate . ":". $_GET['yminute'] . ":00";
+            if($_GET['yminute']=="0"){
+                $ydate = $ydate . ":0". $_GET['yminute'] . ":00";
+            }
+            else {
+                $ydate = $ydate . ":" . $_GET['yminute'] . ":00";
+            }
         }
         else {
             $ydate = $ydate;
@@ -173,8 +192,11 @@ $chart->render();
     <div class = "col-sm-8" style="text-align: center;">
         <?php
         if($j == 0 && ($k == 0 || $k == -1)){
-        echo "<h2>Sorry, no data could be found between the interval of " . $xdate . " and " . $ydate . ", please try a new interval";
-            }
+            echo "<h2>Sorry, no data could be found between the interval of " . $xdate . " and " . $ydate . ", please try a new interval";
+        }
+        else {
+            echo "<h2>From " . $xdate . " to " . $ydate      . "</h2>";
+        }
         ?>
         <div class = "category-wrap">
             <div class="chart-container" id="chart-1">chart renders here</div>
