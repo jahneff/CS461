@@ -32,10 +32,8 @@ $conn = gs2_database_connect();
 $weather=file_get_contents("http://dataservice.accuweather.com/locations/v1/cities/search?q=97333&apikey=42chrUuGeePyvQGvwJGZ2bKGoCGTvGx5&metric=true");
 
 $pos = strpos($weather, "\"Key\":\"");
-echo "Position 1" . $pos;
 $begin = $pos + 7;
 $pos = strpos($weather, "\"Type\":\"");
-echo "Position 2" . $pos;
 $end = $pos - 2;
 $length = $end - $begin;
 $substr = substr($weather, $begin, $length);
