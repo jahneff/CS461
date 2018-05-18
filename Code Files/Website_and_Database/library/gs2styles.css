@@ -203,7 +203,7 @@ chart-and-data-wrap{
 .forecast-time{
     display: inline-block;
     height: 100%;
-    font-size: 20px;
+    font-size: 16px;
     color: whitesmoke;
     margin-right: 5%;
 }
@@ -227,7 +227,7 @@ chart-and-data-wrap{
 .forecast-icon{
     display: inline-block;
     height: 100%;
-    font-size: 20px;
+    font-size: 18px;
     margin-left: 1%;
 }
 

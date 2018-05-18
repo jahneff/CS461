@@ -142,7 +142,7 @@ $oldinterval = $table[0][11];
             <label class="parameter_label" for="preshi">
                 Update:
             </label>
-            <input name="preshi" id="preshi" type="text" class="form-control form-parameter form-parameter form-parameter form-parameter form-parameter" placeholder="<?php echo html_entity_decode("hPa"); ?>">
+            <input name="preshi" id="preshi" type="text" class="form-control form-parameter form-parameter form-parameter form-parameter form-parameter" placeholder="<?php echo html_entity_decode("kPa"); ?>">
         </div>
         <div class="parameters_line_wrap">
             <div class="parameter_type">
@@ -154,7 +154,7 @@ $oldinterval = $table[0][11];
             <label class="parameter_label" for="preslo">
                 Update:
             </label>
-            <input name="preslo" id="preslo" type="text" class="form-control form-parameter form-parameter form-parameter form-parameter form-parameter" placeholder="<?php echo html_entity_decode("hPa"); ?>">
+            <input name="preslo" id="preslo" type="text" class="form-control form-parameter form-parameter form-parameter form-parameter form-parameter" placeholder="<?php echo html_entity_decode("kPa"); ?>">
         </div>
         <div class="parameters_line_wrap">
             <div class="parameter_type">
@@ -183,6 +183,7 @@ $oldinterval = $table[0][11];
 
         <div class="gs2-button" style="width=:100%; text-align: center;">
             <button id="submitbutton" name="submitbutton" class="btn btn-lg btn-primary" type="submit" style="background-color:#5cb85c; border-color: #ffffff; font-size: 125%; vertical-align: middle;">Save changes</button>
+            <button id="resetbutton" name="resetbutton" class="btn btn-lg btn-primary" type="button" style="background-color:#f08080; border-color: #ffffff; font-size: 125%; vertical-align: right;">Reset Values</button>
         </div>
         <div id="message"></div>
     </form>
@@ -315,6 +316,24 @@ $oldinterval = $table[0][11];
             });
 
     }};
+
+document.getElementById('resetbutton').onclick = function reset() {reset:{
+
+    $.post("setparameters.php", {
+            temphi: 999,
+            templo: -999,
+            humidhi: 999,
+            humidlo: -999,
+            preshi: 999,
+            preslo: -999,
+            moisthi: 999,
+            moistlo: -999
+        },
+        function (data) {
+            alert(data);
+            window.location = "parameters.php";
+        });
+}};
 </script>
 
 </html>

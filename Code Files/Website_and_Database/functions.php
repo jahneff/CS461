@@ -75,13 +75,37 @@ function makeNewBarGraph($title, $subtitle, $dataArray, $renderAt, $height, $cur
             $yaxis = utf8_encode('%');
             break;
         case 'Light Intensity':
-            $yaxis = utf8_encode('lx');
+            $yaxis = utf8_encode('dalx');
             break;
         default:
             $yaxis = 'default';
             break;
     }
-    $xaxis = "Military Time (" . $currentDay . ")";
+    $z = 0;
+    $xaxis = "";
+    $ymax = -100;
+    foreach ($dataArray as $key => $value) {
+        if ($z == 0) {
+            $xaxis = $key;
+        }
+        else if ($z == ($num_readings-1)){
+            $xaxis = $xaxis . " - " . $key;
+        }
+        $z++;
+        if($value > $ymax){
+            $ymax = $value;
+        }
+    }
+    $i = -100;
+    while ($i < 250){
+        if($i > $ymax){
+            $ymax = $i;
+            $i = 250;
+        }
+        $i = $i + 50;
+    }
+    $xaxis = $xaxis . " (Military Time)";
+
     $arrData = array(
         "chart" => array(
             "caption"=> $title,
@@ -96,7 +120,8 @@ function makeNewBarGraph($title, $subtitle, $dataArray, $renderAt, $height, $cur
             "labelstep" => "3",
             "xaxisname" => $xaxis,
             "yaxisname" => $yaxis,
-            "bgColor" => "97dd97, 202020"
+            "bgColor" => "97dd97, 202020",
+            "yAxisMaxValue" => $ymax
         )
     );
     $arrData['data'] = array();
@@ -146,7 +171,7 @@ function makeNewCustomBarGraph($title, $subtitle, $dataArray, $renderAt, $height
         $yaxis = $yaxis . "%/";
     }
     if ($light != 0) {
-        $yaxis = $yaxis . "lx/";
+        $yaxis = $yaxis . "dalx/";
     }
 
     if ($yaxis == ""){
@@ -157,6 +182,7 @@ function makeNewCustomBarGraph($title, $subtitle, $dataArray, $renderAt, $height
     }
 
     $xaxis = "Time (" . $currentDay . ")";
+
     $arrData = array(
         "chart" => array(
             "caption"=> $title,
@@ -171,7 +197,7 @@ function makeNewCustomBarGraph($title, $subtitle, $dataArray, $renderAt, $height
             "labelstep" => "3",
             "xaxisname" => $xaxis,
             "yaxisname" => $yaxis,
-            "bgColor" => "97dd97, 202020"
+            "bgColor" => "97dd97, 202020",
         )
     );
     $categoryArray=array();
@@ -218,7 +244,7 @@ function makeNewCustomBarGraph($title, $subtitle, $dataArray, $renderAt, $height
         }
     }
     $arrData["categories"]=array(array("category"=>$categoryArray));
-    $arrData["dataset"] = array(array("seriesName"=> "Temperature (C)", "renderAs"=>"line", "data"=>$dataseries1), array("seriesName"=> "Humidity (%)",  "renderAs"=>"line", "data"=>$dataseries2), array("seriesName"=> "Pressure (kPa)",  "renderAs"=>"line", "data"=>$dataseries3),array("seriesName"=> "Soil Moisture (%)",  "renderAs"=>"line", "data"=>$dataseries4),array("seriesName"=> "Light (lx)",  "renderAs"=>"line", "data"=>$dataseries5));
+    $arrData["dataset"] = array(array("seriesName"=> "Temperature (C)", "renderAs"=>"line", "data"=>$dataseries1), array("seriesName"=> "Humidity (%)",  "renderAs"=>"line", "data"=>$dataseries2), array("seriesName"=> "Pressure (kPa)",  "renderAs"=>"line", "data"=>$dataseries3),array("seriesName"=> "Soil Moisture (%)",  "renderAs"=>"line", "data"=>$dataseries4),array("seriesName"=> "Light (dalx)",  "renderAs"=>"line", "data"=>$dataseries5));
     $jsonEncodedData = json_encode($arrData);
     $tempChart = new FusionCharts("mscombi2d", $title , "100%", $height, $renderAt, "json", $jsonEncodedData);
     return $tempChart;
