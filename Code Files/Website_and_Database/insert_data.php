@@ -1,5 +1,5 @@
 <?php
-
+    //This simple script is what the microcontroller sends its data to, in the form of a GET rresuest. If this page is loaded without sending the request, it will insert a row with all fields except ID and date=-999
     include_once 'functions.php';
     date_default_timezone_set('America/Los_Angeles');
 
@@ -20,6 +20,7 @@
     else {
         echo "Failure, could not allocate ID";
     }
+    //The 1000 and 10 divisions offset the units which the sensors gather so that everything remains within the -100 to 200 range where it can be graphed.
     $temperature = (isset($_GET['temperature']) ? $_GET['temperature'] : -999);
     $humidity = (isset($_GET['humidity']) ? $_GET['humidity'] : -999);
     $pressure = (isset($_GET['pressure']) ? ($_GET['pressure']/1000) : -999);

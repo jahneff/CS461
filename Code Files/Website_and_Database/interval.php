@@ -1,4 +1,6 @@
 <?php
+//This page has one function: to display the value of the current interval.
+//The microcontroller queries this page to check and reset its interval. 
 include_once 'functions.php';
 
 $conn = gs2_database_connect();

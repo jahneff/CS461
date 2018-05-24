@@ -60,7 +60,7 @@ function get_num_rows($conn, $tablename){
     }
 };
 
-function makeNewBarGraph($title, $subtitle, $dataArray, $renderAt, $height, $currentDay, $num_readings){
+function makeNewBarGraph($title, $subtitle, $dataArray, $renderAt, $height, $num_readings){
     switch ($title) {
         case 'Temperature':
             $yaxis = utf8_encode('C');

@@ -6,9 +6,10 @@ include_once 'functions.php';
 include_once 'fusioncharts/fusioncharts.php';
 $conn = gs2_database_connect();
 
+
+//Get the current parameters and store them in variables
 $name = "Parameters";
 $table = get_table($conn, $name, 12);
-
 $oldhitemp = $table[0][1];
 $oldlotemp = $table[0][2];
 $oldhihumid = $table[0][3];
@@ -18,8 +19,6 @@ $oldlopres = $table[0][6];
 $oldhimoist = $table[0][7];
 $oldlomoist = $table[0][8];
 $oldinterval = $table[0][11];
-
-
 ?>
 
 <head>
@@ -49,6 +48,7 @@ $oldinterval = $table[0][11];
 
         </div>
 
+        <!-- This helpbox is not displayed on the page until the user hits the "Show Help" button -->
         <div id="helpbox" style="margin-bottom: 5%; display: none;">
             <div class="parameters_form_subheader">Welcome to the system parameters page! Here you can interact with the outdoor system directly.</div>
             <div class="parameters_form_subheader">There are two things you can do from here:</div>
@@ -59,7 +59,6 @@ $oldinterval = $table[0][11];
             <div class="parameters_form_subheader" style="margin-left: 6%;">Normally, values on this site display in green. </div>
             <div class="parameters_form_subheader" style="margin-left: 6%;">If value > high bound, it will display in <span style='color: #d01d1d;'>red</span></div>
             <div class="parameters_form_subheader" style="margin-left: 6%;">If value < low bound, it will display in <span style='color: #b5d5ff;'>blue</span> </div>
-
 
         </div>
         <script>
@@ -72,6 +71,7 @@ $oldinterval = $table[0][11];
                 }
             };
         </script>
+
         <div class="parameters_line_wrap">
             <div class="parameter_type">
                 Reading interval (min)
@@ -192,8 +192,9 @@ $oldinterval = $table[0][11];
 </div>
 
 </body>
-
 <script>
+
+//The following function executes when "Save Changes" is clicked, and makes sure that none of the maximums are less than the minimums and vice versa, and also makes sure a value has been changed
     document.getElementById('submitbutton').onclick = function submit() {submit:{
         var interval = $("#interval").val();
         var temphi = $("#temphi").val();
@@ -317,6 +318,7 @@ $oldinterval = $table[0][11];
 
     }};
 
+//The following function executes when "Reset Values" is pressed, and resets all the bounds to their default 999/-999 values.
 document.getElementById('resetbutton').onclick = function reset() {reset:{
 
     $.post("setparameters.php", {

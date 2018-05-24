@@ -23,7 +23,7 @@ $conn = gs2_database_connect();
 
 <?php
 
-
+//This very long sections formats from the get request, a datetime string that can be numerically compared to the ones stored in the database. This allows us to set a low and high time bound and fetch all rows within it.
 $xdate = "";
 $ydate = "";
 
@@ -175,11 +175,6 @@ if (isset($_GET['graphlight']) && $_GET['graphlight']=="Y"){
     $light = 1;
 }
 
-//echo $xdate;
-//echo $ydate;
-//echo strtotime($xdate);
-//echo strtotime($ydate);
-
 $time_lo_bound = strtotime($xdate);
 $time_hi_bound = strtotime($ydate);
 $table1 = get_table($conn, 'Timeslice', 8);
@@ -190,14 +185,13 @@ $j = 0;
 while($time_lo_bound > strtotime($table1[$j]['1']) && $j < $num_rows) {
     $j++;
 }
-
 $k = $num_rows - 1;
 while($time_hi_bound < strtotime($table1[$k]['1']) && $k > 0) {
     $k--;
 }
 
 $name = "Timeslice";
-$table = get_raw_table($conn, $name, $k, ($j+1));
+$table = get_raw_table($conn, $name, $table1[$k][0], $table1[$j][0]);
 $label = $xdate . " -- " . $ydate;
 $chart = makeNewCustomBarGraph("Combination Graph", "Custom time period", $table, "chart-1", 300, $label, $temp, $humid, $pres, $moist, $light);
 $chart->render();
@@ -321,66 +315,66 @@ $chart->render();
                 </select>
                 <label for="xminute">Minute X:</label>
                 <select name="xminute" id="xminute" class="form-control form-search">
-                    <option value="0" <?PHP if($month==12) echo "selected";?>>0</option>
-                    <option value="1"  <?PHP if($month==1) echo "selected";?>>1</option>
-                    <option value="2"  <?PHP if($month==2) echo "selected";?>>2</option>
-                    <option value="3"  <?PHP if($month==3) echo "selected";?>>3</option>
-                    <option value="4"  <?PHP if($month==4) echo "selected";?>>4</option>
-                    <option value="5"  <?PHP if($month==5) echo "selected";?>>5</option>
-                    <option value="6"  <?PHP if($month==6) echo "selected";?>>6</option>
-                    <option value="7"  <?PHP if($month==7) echo "selected";?>>7</option>
-                    <option value="8"  <?PHP if($month==8) echo "selected";?>>8</option>
-                    <option value="9"  <?PHP if($month==9) echo "selected";?>>9</option>
-                    <option value="10" <?PHP if($month==10) echo "selected";?>>10</option>
-                    <option value="11" <?PHP if($month==11) echo "selected";?>>11</option>
-                    <option value="12" <?PHP if($month==12) echo "selected";?>>12</option>
-                    <option value="13"  <?PHP if($month==1) echo "selected";?>>13</option>
-                    <option value="14"  <?PHP if($month==2) echo "selected";?>>14</option>
-                    <option value="15"  <?PHP if($month==3) echo "selected";?>>15</option>
-                    <option value="16"  <?PHP if($month==4) echo "selected";?>>16</option>
-                    <option value="17"  <?PHP if($month==5) echo "selected";?>>17</option>
-                    <option value="18"  <?PHP if($month==6) echo "selected";?>>18</option>
-                    <option value="19"  <?PHP if($month==7) echo "selected";?>>19</option>
-                    <option value="20"  <?PHP if($month==8) echo "selected";?>>20</option>
-                    <option value="21"  <?PHP if($month==9) echo "selected";?>>21</option>
-                    <option value="22" <?PHP if($month==10) echo "selected";?>>22</option>
-                    <option value="23" <?PHP if($month==11) echo "selected";?>>23</option>
-                    <option value="24" <?PHP if($month==12) echo "selected";?>>24</option>
-                    <option value="25"  <?PHP if($month==1) echo "selected";?>>25</option>
-                    <option value="26"  <?PHP if($month==2) echo "selected";?>>26</option>
-                    <option value="27"  <?PHP if($month==3) echo "selected";?>>27</option>
-                    <option value="28"  <?PHP if($month==4) echo "selected";?>>28</option>
-                    <option value="29"  <?PHP if($month==5) echo "selected";?>>29</option>
-                    <option value="30"  <?PHP if($month==6) echo "selected";?>>30</option>
-                    <option value="31"  <?PHP if($month==7) echo "selected";?>>31</option>
-                    <option value="32"  <?PHP if($month==8) echo "selected";?>>32</option>
-                    <option value="33"  <?PHP if($month==9) echo "selected";?>>33</option>
-                    <option value="34" <?PHP if($month==10) echo "selected";?>>34</option>
-                    <option value="35" <?PHP if($month==11) echo "selected";?>>35</option>
-                    <option value="36" <?PHP if($month==12) echo "selected";?>>36</option>
-                    <option value="37"  <?PHP if($month==1) echo "selected";?>>37</option>
-                    <option value="38"  <?PHP if($month==2) echo "selected";?>>38</option>
-                    <option value="39"  <?PHP if($month==3) echo "selected";?>>39</option>
-                    <option value="40"  <?PHP if($month==4) echo "selected";?>>40</option>
-                    <option value="41"  <?PHP if($month==5) echo "selected";?>>41</option>
-                    <option value="42"  <?PHP if($month==6) echo "selected";?>>42</option>
-                    <option value="43"  <?PHP if($month==7) echo "selected";?>>43</option>
-                    <option value="44"  <?PHP if($month==8) echo "selected";?>>44</option>
-                    <option value="45"  <?PHP if($month==9) echo "selected";?>>45</option>
-                    <option value="46" <?PHP if($month==10) echo "selected";?>>46</option>
-                    <option value="47" <?PHP if($month==11) echo "selected";?>>47</option>
-                    <option value="48" <?PHP if($month==12) echo "selected";?>>48</option>
-                    <option value="49"  <?PHP if($month==1) echo "selected";?>>49</option>
-                    <option value="50"  <?PHP if($month==2) echo "selected";?>>50</option>
-                    <option value="51"  <?PHP if($month==3) echo "selected";?>>51</option>
-                    <option value="52"  <?PHP if($month==4) echo "selected";?>>52</option>
-                    <option value="53"  <?PHP if($month==5) echo "selected";?>>53</option>
-                    <option value="54"  <?PHP if($month==6) echo "selected";?>>54</option>
-                    <option value="55"  <?PHP if($month==7) echo "selected";?>>55</option>
-                    <option value="56"  <?PHP if($month==8) echo "selected";?>>56</option>
-                    <option value="57"  <?PHP if($month==9) echo "selected";?>>57</option>
-                    <option value="58" <?PHP if($month==10) echo "selected";?>>58</option>
-                    <option value="59" <?PHP if($month==11) echo "selected";?>>59</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                    <option value="32">32</option>
+                    <option value="33">33</option>
+                    <option value="34">34</option>
+                    <option value="35">35</option>
+                    <option value="36">36</option>
+                    <option value="37">37</option>
+                    <option value="38">38</option>
+                    <option value="39">39</option>
+                    <option value="40">40</option>
+                    <option value="41">41</option>
+                    <option value="42">42</option>
+                    <option value="43">43</option>
+                    <option value="44">44</option>
+                    <option value="45">45</option>
+                    <option value="46">46</option>
+                    <option value="47">47</option>
+                    <option value="48">48</option>
+                    <option value="49">49</option>
+                    <option value="50">50</option>
+                    <option value="51">51</option>
+                    <option value="52">52</option>
+                    <option value="53">53</option>
+                    <option value="54">54</option>
+                    <option value="55">55</option>
+                    <option value="56">56</option>
+                    <option value="57">57</option>
+                    <option value="58">58</option>
+                    <option value="59">59</option>
                 </select>
             </div>
 
@@ -475,66 +469,66 @@ $chart->render();
                 </select>
                 <label for="yminute">Minute Y:</label>
                 <select name="yminute" id="yminute" class="form-control form-search">
-                    <option value="0" <?PHP if($month==12) echo "selected";?>>0</option>
-                    <option value="1"  <?PHP if($month==1) echo "selected";?>>1</option>
-                    <option value="2"  <?PHP if($month==2) echo "selected";?>>2</option>
-                    <option value="3"  <?PHP if($month==3) echo "selected";?>>3</option>
-                    <option value="4"  <?PHP if($month==4) echo "selected";?>>4</option>
-                    <option value="5"  <?PHP if($month==5) echo "selected";?>>5</option>
-                    <option value="6"  <?PHP if($month==6) echo "selected";?>>6</option>
-                    <option value="7"  <?PHP if($month==7) echo "selected";?>>7</option>
-                    <option value="8"  <?PHP if($month==8) echo "selected";?>>8</option>
-                    <option value="9"  <?PHP if($month==9) echo "selected";?>>9</option>
-                    <option value="10" <?PHP if($month==10) echo "selected";?>>10</option>
-                    <option value="11" <?PHP if($month==11) echo "selected";?>>11</option>
-                    <option value="12" <?PHP if($month==12) echo "selected";?>>12</option>
-                    <option value="13"  <?PHP if($month==1) echo "selected";?>>13</option>
-                    <option value="14"  <?PHP if($month==2) echo "selected";?>>14</option>
-                    <option value="15"  <?PHP if($month==3) echo "selected";?>>15</option>
-                    <option value="16"  <?PHP if($month==4) echo "selected";?>>16</option>
-                    <option value="17"  <?PHP if($month==5) echo "selected";?>>17</option>
-                    <option value="18"  <?PHP if($month==6) echo "selected";?>>18</option>
-                    <option value="19"  <?PHP if($month==7) echo "selected";?>>19</option>
-                    <option value="20"  <?PHP if($month==8) echo "selected";?>>20</option>
-                    <option value="21"  <?PHP if($month==9) echo "selected";?>>21</option>
-                    <option value="22" <?PHP if($month==10) echo "selected";?>>22</option>
-                    <option value="23" <?PHP if($month==11) echo "selected";?>>23</option>
-                    <option value="24" <?PHP if($month==12) echo "selected";?>>24</option>
-                    <option value="25"  <?PHP if($month==1) echo "selected";?>>25</option>
-                    <option value="26"  <?PHP if($month==2) echo "selected";?>>26</option>
-                    <option value="27"  <?PHP if($month==3) echo "selected";?>>27</option>
-                    <option value="28"  <?PHP if($month==4) echo "selected";?>>28</option>
-                    <option value="29"  <?PHP if($month==5) echo "selected";?>>29</option>
-                    <option value="30"  <?PHP if($month==6) echo "selected";?>>30</option>
-                    <option value="31"  <?PHP if($month==7) echo "selected";?>>31</option>
-                    <option value="32"  <?PHP if($month==8) echo "selected";?>>32</option>
-                    <option value="33"  <?PHP if($month==9) echo "selected";?>>33</option>
-                    <option value="34" <?PHP if($month==10) echo "selected";?>>34</option>
-                    <option value="35" <?PHP if($month==11) echo "selected";?>>35</option>
-                    <option value="36" <?PHP if($month==12) echo "selected";?>>36</option>
-                    <option value="37"  <?PHP if($month==1) echo "selected";?>>37</option>
-                    <option value="38"  <?PHP if($month==2) echo "selected";?>>38</option>
-                    <option value="39"  <?PHP if($month==3) echo "selected";?>>39</option>
-                    <option value="40"  <?PHP if($month==4) echo "selected";?>>40</option>
-                    <option value="41"  <?PHP if($month==5) echo "selected";?>>41</option>
-                    <option value="42"  <?PHP if($month==6) echo "selected";?>>42</option>
-                    <option value="43"  <?PHP if($month==7) echo "selected";?>>43</option>
-                    <option value="44"  <?PHP if($month==8) echo "selected";?>>44</option>
-                    <option value="45"  <?PHP if($month==9) echo "selected";?>>45</option>
-                    <option value="46" <?PHP if($month==10) echo "selected";?>>46</option>
-                    <option value="47" <?PHP if($month==11) echo "selected";?>>47</option>
-                    <option value="48" <?PHP if($month==12) echo "selected";?>>48</option>
-                    <option value="49"  <?PHP if($month==1) echo "selected";?>>49</option>
-                    <option value="50"  <?PHP if($month==2) echo "selected";?>>50</option>
-                    <option value="51"  <?PHP if($month==3) echo "selected";?>>51</option>
-                    <option value="52"  <?PHP if($month==4) echo "selected";?>>52</option>
-                    <option value="53"  <?PHP if($month==5) echo "selected";?>>53</option>
-                    <option value="54"  <?PHP if($month==6) echo "selected";?>>54</option>
-                    <option value="55"  <?PHP if($month==7) echo "selected";?>>55</option>
-                    <option value="56"  <?PHP if($month==8) echo "selected";?>>56</option>
-                    <option value="57"  <?PHP if($month==9) echo "selected";?>>57</option>
-                    <option value="58" <?PHP if($month==10) echo "selected";?>>58</option>
-                    <option value="59" <?PHP if($month==11) echo "selected";?>>59</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                    <option value="32">32</option>
+                    <option value="33">33</option>
+                    <option value="34">34</option>
+                    <option value="35">35</option>
+                    <option value="36">36</option>
+                    <option value="37">37</option>
+                    <option value="38">38</option>
+                    <option value="39">39</option>
+                    <option value="40">40</option>
+                    <option value="41">41</option>
+                    <option value="42">42</option>
+                    <option value="43">43</option>
+                    <option value="44">44</option>
+                    <option value="45">45</option>
+                    <option value="46">46</option>
+                    <option value="47">47</option>
+                    <option value="48">48</option>
+                    <option value="49">49</option>
+                    <option value="50">50</option>
+                    <option value="51">51</option>
+                    <option value="52">52</option>
+                    <option value="53">53</option>
+                    <option value="54">54</option>
+                    <option value="55">55</option>
+                    <option value="56">56</option>
+                    <option value="57">57</option>
+                    <option value="58">58</option>
+                    <option value="59">59</option>
                 </select>
             </div>
             <div class="checkbox-wrap">

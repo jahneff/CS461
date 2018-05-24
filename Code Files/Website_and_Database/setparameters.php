@@ -1,16 +1,16 @@
 <?php
+
+//<<Setparameters.php>>
+//  This page constructs and executed a mySQLi query based on the post request sent from Parameters.php
+
 include_once 'functions.php';
 $conn = gs2_database_connect();
 
 $query = "UPDATE `gs2_database`.`Parameters` SET";
-
-
-
 $message = "";
 if ($_POST['templo']!=""){
         $query = $query . " `temp_Lo` = " . $_POST['templo'] . ",";
 }
-
 if ($_POST['temphi']!="") {
     $query = $query . " `temp_Hi` = " . $_POST['temphi'] . ",";
 }
@@ -48,7 +48,7 @@ if ($_POST['interval']!=""){
 
 $query = chop($query, ", ");
 $query = $query . " WHERE `Parameters`.`ID` = 1";
-//echo $query;
+
 if ($result=mysqli_query($conn, $query)) {
     echo "Values updated";
 }
