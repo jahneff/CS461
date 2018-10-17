@@ -1,5 +1,5 @@
 <?php
-include_once 'functions.php';
+include_once '../library/functions.php';
 $conn = gs2_database_connect();
 if(!$conn){
     echo "Connection to database failed";

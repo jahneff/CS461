@@ -1,7 +1,7 @@
 <?php
     //This simple script is what the microcontroller sends its data to, in the form of a GET rresuest. If this page is loaded without sending the request, it will insert a row with all fields except ID and date=-999
-    include_once 'functions.php';
-    date_default_timezone_set('America/Los_Angeles');
+include_once '../library/functions.php';
+date_default_timezone_set('America/Los_Angeles');
 
     $conn = gs2_database_connect();
     if($conn){
