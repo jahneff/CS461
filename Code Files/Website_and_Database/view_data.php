@@ -555,6 +555,7 @@ $chart->render();
         </form>
     </div>
     <div class = "col-sm-4">
+        edit test
     </div>
 </div>
 
