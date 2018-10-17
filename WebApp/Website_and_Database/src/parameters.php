@@ -2,8 +2,8 @@
 <html>
 
 <?php
-include_once 'functions.php';
-include_once 'fusioncharts/fusioncharts.php';
+include_once '../library/functions.php';
+include_once '../fusioncharts/fusioncharts.php';
 $conn = gs2_database_connect();
 
 
@@ -23,8 +23,10 @@ $oldinterval = $table[0][11];
 
 <head>
     <title>GS2 Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="library/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="library/gs2styles.css"/>
+    <link rel="stylesheet" type="text/css" href="../library/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="../library/gs2styles.css"/>
+    <script src="../fusioncharts/js/fusioncharts.js"></script>
+    <script src="../fusioncharts/js/fusioncharts.theme.ocean.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <nav class="navbar  navbar-dark bg-primary sticky-top" style="margin-bottom: 0px; background-color: #5cb85c;">

@@ -10,8 +10,8 @@
 /*
     Include the `fusioncharts.php` file that contains functions to embed the charts.
 */
-include_once 'functions.php';
-include_once 'fusioncharts/fusioncharts.php';
+include_once '../library/functions.php';
+include_once '../fusioncharts/fusioncharts.php';
 
 $tests = 0;
 $successfultests= 0;
