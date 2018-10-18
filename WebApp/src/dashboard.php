@@ -29,7 +29,7 @@ $conn = gs2_database_connect();
 <?php
 
 //The following blocks parses the forecast into arrays from the string received from Accuweather API.
-//$weather=file_get_contents("http://dataservice.accuweather.com/locations/v1/cities/search?q=97333&apikey=42chrUuGeePyvQGvwJGZ2bKGoCGTvGx5&metric=true");
+$weather=file_get_contents("http://dataservice.accuweather.com/locations/v1/cities/search?q=97333&apikey=42chrUuGeePyvQGvwJGZ2bKGoCGTvGx5&metric=true");
 $weather = "string(1064) \"[{\"Version\":1,\"Key\":\"40973_PC\",\"Type\":\"PostalCode\",\"Rank\":55,\"LocalizedName\":\"Corvallis\",\"EnglishName\":\"Corvallis\",\"PrimaryPostalCode\":\"97333\",\"Region\":{\"ID\":\"NAM\",\"LocalizedName\":\"North America\",\"EnglishName\":\"North America\"},\"Country\":{\"ID\":\"US\",\"LocalizedName\":\"United States\",\"EnglishName\":\"United States\"},\"AdministrativeArea\":{\"ID\":\"OR\",\"LocalizedName\":\"Oregon\",\"EnglishName\":\"Oregon\",\"Level\":1,\"LocalizedType\":\"State\",\"EnglishType\":\"State\",\"CountryID\":\"US\"},\"TimeZone\":{\"Code\":\"PDT\",\"Name\":\"America/Los_Angeles\",\"GmtOffset\":-7.0,\"IsDaylightSaving\":true,\"NextOffsetChange\":\"2018-11-04T09:00:00Z\"},\"GeoPosition\":{\"Latitude\":44.471,\"Longitude\":-123.313,\"Elevation\":{\"Metric\":{\"Value\":71.0,\"Unit\":\"m\",\"UnitType\":5},\"Imperial\":{\"Value\":232.0,\"Unit\":\"ft\",\"UnitType\":0}}},\"IsAlias\":false,\"ParentCity\":{\"Key\":\"330142\",\"LocalizedName\":\"Corvallis\",\"EnglishName\":\"Corvallis\"},\"SupplementalAdminAreas\":[{\"Level\":2,\"LocalizedName\":\"Benton\",\"EnglishName\":\"Benton\"}],\"DataSets\":[\"Alerts\",\"DailyAirQualityForecast\",\"DailyPollenForecast\",\"ForecastConfidence\",\"MinuteCast\"]}]\"";
 $pos = strpos($weather, "\"Key\":\"");
 $begin = $pos + 7;
@@ -263,6 +263,9 @@ else{
 
         <!--The following section is the weather forecast. PHP is used to choose between a.m. and p.m. as well as to match the condition string to the correct icon. -->
         <div class = "col-sm-2">
+            <div>
+                Corvallis, OR
+            </div>
             <div class="weather-wrap">
             <?php
                     if ($hour > 12)
@@ -324,7 +327,7 @@ else{
                     }
                 ?>
                 <a href="https://developer.accuweather.com/packages" >
-                    <img src="library/accuweather.png" style="width:60%; height 20px;" />
+                    <img src="../library/accuweather.png" style="width:60%; height 20px;" />
                 </a>
             </div>
         </div>
